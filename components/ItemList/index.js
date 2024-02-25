@@ -24,44 +24,7 @@ import Rating from "react-rating";
 //   import { AiOutlineHeart, AiFillCheckCircle } from "react-icons/ai";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import ModalBuy from "../ModalBuy";
-
-
-// const handleSubmit = async () => {
-//   setLoading(true);
-//   console.log(gerarQr)
-
-//   const selecoesValidas = selecoes.filter((selecao) => selecao.quantidade > 0);
-
-// const dados = selecoesValidas.map((selecao) => ({
-//   id: selecao.id,
-//   quantidade: selecao.quantidade
-// }));
-// console.log('Resposta da API não contém os dados esperados:', dados);
-
-//   try {
-//     const response = await api.post('/criarQrCodeRifa',{dados});
-//     console.log('Resposta da API não contém os dados esperados:', dados);
-
-//     if (response.data) {
-//       const qrCode = response.data.emvqrcps;
-//       const transition = response.data.transactionId;
-//       // emvqrcps
-//       setValue(qrCode);
-//       setVerifyTransition(transition);
-//       verificarPagamento(transition);
-//     } else {
-//       console.log('Resposta da API não contém os dados esperados:', response.data);
-//     }
-//   } catch (error) {
-//     console.log('Erro ao enviar linhas selecionadas:', error);
-//   } finally {
-//     setLoading(false);
-//   }
-// };
-// token
-// : 
-// "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGVhby1sZWFvLWJhY2suangxZnlwLmVhc3lwYW5lbC5ob3N0L2FwaS9sb2dpbkNsaWVudGVSaWZhIiwiaWF0IjoxNzA4NTcwOTUzLCJleHAiOjE3MDg2MDY5NTMsIm5iZiI6MTcwODU3MDk1MywianRpIjoiNE1RZm5vbjkxZVZOc3NzaCIsInN1YiI6IjEiLCJwcnYiOiI5N2IyNTk2YjdjMTI1ZmYyYWI4NjI0YjAzNDkxMTFhNmI3NjgzZmYwIiwiaWQiOjEsImNhaXhhIjowLCJhdGl2byI6ImF0aXZvIiwiY3BmIjoiMTM2Ljk5Ni44ODQtMTAifQ.6ZinJz0C-l-K-HC7n-evUeYISy3-AYN9N2G_bktIh1E"
-
+import api from '../../src/services/api';
 
 export default function ItemList({
   rifa,
@@ -83,6 +46,7 @@ export default function ItemList({
         mt={{ base: 4, md: 0 }}
         marginBottom={{ base: 4, md: 2 }}
       />
+      
       <Grid
         mb={{ base: 5, md: 3 }}
         templateAreas={{
@@ -129,8 +93,9 @@ export default function ItemList({
               borderRadius: 4,
             }}
             width={{ base: "60%", xl: "100%" }}
-            //  height={"100%"}
-            src="https://bit.ly/dan-abramov"
+             height={"100%"}
+      src={`${api.defaults.img}${rifa.imagem}`}
+
           />
         </GridItem>
         <GridItem
@@ -168,7 +133,7 @@ export default function ItemList({
 
               <Box>
                 <Text fontWeight={"400"} color={"blackAlpha.700"}>
-                  Cotas Compradas
+                  Compradas
                 </Text>
                 <Text 
                 textAlign={'center'}

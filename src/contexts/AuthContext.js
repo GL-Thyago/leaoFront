@@ -8,7 +8,9 @@ import {
   removeCookie,
   setCookie,
 } from "../services/cookies";
-import { Box, Button, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Stack, Text, useDisclosure, ButtonGroup, Link } from "@chakra-ui/react";
+import { FaWhatsapp, FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
+
 import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -171,39 +173,40 @@ export const AuthProvider = ({ children }) => {
             >
               <Stack spacing={4}>
                 <Box>
-                  <Text
+                <Text
                     fontSize="xl"
                     textAlign={"center"}
                     fontWeight={"bold"}
                     letterSpacing={"0.5px"}
                   >
-                    Está gostando?
+                    Siga nossas redes sociais e fique por dentro.
                   </Text>
-
                   <Text
-                    fontWeight={"600"}
-                    color={"#545454"}
-                    fontSize={"14px"}
+                    fontSize="xl"
                     textAlign={"center"}
+                    fontWeight={"bold"}
+                    letterSpacing={"0.5px"}
+                    marginBottom={'10'}
                   >
-                    Qual nota você nos dá?
+                    Diversos sorteios gratuito
                   </Text>
-                </Box>
 
-                <Rating
-                  onClick={(e) => {
-                    if (e === 5) {
-                      setAvaliation(false);
-                      setEnableRating(true);
-                    } else {
-                      setAvaliation(false);
-                      handleBoxActivation(false);
-                    }
-                  }}
-                  emptySymbol={<BsStar size={35} color="#ECC94B" />}
-                  fullSymbol={<BsStarFill size={35} color="#ECC94B" />}
-                  initialRating={0}
-                />
+                  <ButtonGroup variant='outline' spacing='1'>
+    <Link href="https://wa.me/5511965281517?text=ola%20Preciso%20de%20Suporte%20na%20Rifa" isExternal>
+      <Button leftIcon={<FaWhatsapp />} colorScheme='green'>WhatsApp</Button>
+    </Link>
+    <Link href="https://www.facebook.com/profile.php?id=61555804864116&mibextid=ZbWKwL" isExternal>
+      <Button leftIcon={<FaFacebook />} >Facebook</Button>
+    </Link>
+    <Link href="https://www.instagram.com/rifas.leao?igsh=YmxnbWZ5ZTJpbmFx" isExternal>
+      <Button leftIcon={<FaInstagram />} colorScheme='pink'>Instagram</Button>
+    </Link>
+    <Link href="https://www.tiktok.com/@rifasleao" isExternal>
+      <Button leftIcon={<FaTiktok />} >TikTok</Button>
+    </Link>
+  </ButtonGroup>
+                
+                </Box>
               </Stack>
             </Box>
           </Box>

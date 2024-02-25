@@ -79,7 +79,8 @@ export default function Navbar() {
                 ml={'5%'}
                 gap={5}
               >
-                <Heading
+               
+                   <Text
                   cursor='pointer'
                   onClick={() => router.push('/rifas')}
                   size={'xs'}
@@ -88,10 +89,10 @@ export default function Navbar() {
                   fontWeight={'700'}
                   textTransform='uppercase'
                 >
-                  Rifas
-                </Heading>
+                  Ação do leão
+                </Text>
 
-                <Heading
+                {/* <Heading
                   cursor='pointer'
                   onClick={() => router.push('/about')}
                   size={'xs'}
@@ -102,7 +103,7 @@ export default function Navbar() {
                   marginEnd={'20'}
                 >
                   Sobre nós
-                </Heading>
+                </Heading> */}
 
                 <Heading
                   cursor='pointer'
@@ -114,7 +115,7 @@ export default function Navbar() {
                   textTransform='uppercase'
                 >
 
-<ButtonGroup variant='outline' spacing='1'>
+{/* <ButtonGroup variant='outline' spacing='1'>
     <Link href="https://wa.me/5511965281517?text=ola%20Preciso%20de%20Suporte%20na%20Rifa" isExternal>
       <Button leftIcon={<FaWhatsapp />} colorScheme='green'>WhatsApp</Button>
     </Link>
@@ -127,7 +128,7 @@ export default function Navbar() {
     <Link href="https://www.tiktok.com/@rifasleao" isExternal>
       <Button leftIcon={<FaTiktok />} >TikTok</Button>
     </Link>
-  </ButtonGroup>
+  </ButtonGroup> */}
 
                 </Heading>
               </Box>
@@ -135,17 +136,7 @@ export default function Navbar() {
 
               <Box>
 
-                <Heading
-                  cursor='pointer'
-                  onClick={() => router.push('/register')}
-                  size={'xs'}
-                  color={'blackAlpha.900'}
-                  letterSpacing='0.1px'
-                  fontWeight={'700'}
-                  textTransform='uppercase'
-                >
-                  Cadastre-se
-                </Heading>
+              
 
                 <Heading
                   cursor='pointer'
@@ -263,4 +254,6 @@ export default function Navbar() {
 
     </HStack>
   )
+
+
 }

@@ -83,7 +83,7 @@ import useAuth from '../../src/contexts/AuthContext';
                   }
 
                   onPlaceQuantity();
-                }}>Submit</Button>
+                }}>Comprar</Button>
               </Box>
 
             </Stack>

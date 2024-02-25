@@ -70,10 +70,10 @@ export default function Dashboard() {
         >
           <GridItem area={"top"} bg="#ffff" borderTopRadius={14}>
             <Box>
-              <Box display={"flex"} justifyContent={"space-between"}>
+              {/* <Box display={"flex"} justifyContent={"space-between"}>
                 <Text mt={3} mb={3} ml={5} fontWeight={"500"} fontSize="xl">
                   Escolha a categoria
-                </Text>
+                </Text> */}
 
                 {/* <Box>
                   <FormControl
@@ -97,7 +97,7 @@ export default function Dashboard() {
                     />
                   </FormControl>
                 </Box> */}
-              </Box>
+              {/* </Box> */}
               <Divider borderColor={"blackAlpha.600"} />
             </Box>
 

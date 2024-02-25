@@ -36,9 +36,10 @@ export default function Home () {
   useEffect(() => {
   const fetchRifas = async () => {
     const allRifas = await api.get('/listRifas');
-    console.log(allRifas.data.rifas);
+    console.log('aqui',allRifas.data.rifas);
 
     setRifas(allRifas.data.rifas);
+    console.log('aqui', rifas);
     
   }
   fetchRifas();
@@ -99,7 +100,7 @@ export default function Home () {
               justifyContent={'center'}
               >
                 <Image
-                src={rifa.image}
+             src={api.defaults.img + rifa.imagem}
                 sx={{
                   objectFit: 'cover',
                   borderLeftRadius: '10px',
@@ -131,7 +132,7 @@ export default function Home () {
                 <Rating
                   emptySymbol={<BsStar size={10} color="#ECC94B" />}
                   fullSymbol={<BsStarFill size={10} color="#ECC94B" />}
-                  initialRating={3}
+                  initialRating={5}
                   readonly
                 />
 
@@ -141,7 +142,8 @@ export default function Home () {
                   fontWeight={500}
                   color={"gray.600"}
                 >
-                  (100.000)
+                  
+                  ({rifa.disponivel})
                 </Text>
               </Box>
 
