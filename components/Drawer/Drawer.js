@@ -72,21 +72,22 @@ export default function DrawerNavbar({ isOpen, onClose, drawerButtonRef }) {
             p={5}
             display={'flex'}
           >
-            <Avatar
-              size={"lg"}
-              src="https://th.bing.com/th/id/OIP.q86T2esYe207gNMd1kBE_gHaE6?pid=ImgDet&rs=1"
-            />
+            {/* <Avatar
+              // size={"lg"}
+              // src="https://th.bing.com/th/id/OIP.q86T2esYe207gNMd1kBE_gHaE6?pid=ImgDet&rs=1"
+              // src={require('../../public/logo.png')}
+            /> */}
             <Box display={'flex'}
             flexDirection={'column'}
             p={2}
             >
                 <Text
                 fontWeight={'600'}
-                fontSize={'xl'}>Nome do usuário</Text>
-                <Text
+                fontSize={'xl'}>AÇÃO DO LEÃO</Text>
+                {/* <Text
                  color={'gray.500'}
                  fontWeight={'semibold'}
-                >emaildousuario@gmail.com</Text>
+                >emaildousuario@gmail.com</Text> */}
             </Box>
           </Box>
 

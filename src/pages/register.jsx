@@ -30,8 +30,9 @@ export default function Home() {
   const [isAlert, setIsAlert] = useState(null);
   const [messageAlert, setMessageAlert] = useState(null);
   // get a query parameter from the url
-  const { invite_code = null } = router.query
-
+  const { afiliado = null } = router.query
+  const codigo = afiliado !== null ? afiliado : '0';
+  
   const estados = [
     { value: 'AC', label: 'Acre' },
     { value: 'AL', label: 'Alagoas' },
@@ -82,8 +83,9 @@ export default function Home() {
         telefone: data.telefone,
         senha: data.senha,
         uf: data.uf,
-        codigo: invite_code
+        codigo: codigo
       });
+      
     if (post.status === 200) {
       setIsAlert(true);
       setMessageAlert(post.data.msg);

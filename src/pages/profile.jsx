@@ -19,15 +19,59 @@ import {
   } from "@chakra-ui/react";
   import Head from "next/head";
   import Plataform from "../../components/Plataform";
-  import { useState } from "react";
+  import { useState, useEffect } from "react";
   import ItemList from "../../components/ItemList";
   import { useRouter } from 'next/router'
   import { PhoneIcon } from "@chakra-ui/icons";
 import useAuth from "@/contexts/AuthContext";
+import api from "../services/api"
   
   export default function Dashboard() {
     const { logout } = useAuth();
     const router = useRouter();
+  const [dadosCliente, setDadosCliente] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const listDadosCliente = async () => {
+    try {
+      const response = await api.get(`/listDadosCliente`);
+      console.log('Dados da resposta:', response.data);
+      const cliente = response.data.cliente;
+      setDadosCliente(cliente);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Erro ao verificar pagamento:', error);
+      setError(error);
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    listDadosCliente();
+  }, []);
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (error) {
+    return <div>Erro: {error.message}</div>;
+  }
+
+
+  const handleCopy = () => {
+    const baseUrl = window.location.origin;
+    const registerUrl = `${baseUrl}/register?afiliado=${dadosCliente.afiliado}`;
+    navigator.clipboard.writeText(registerUrl)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 5000);
+      })
+      .catch((error) => console.error('Erro ao copiar:', error));
+  };
+
 
     return (
         <main>
@@ -125,17 +169,15 @@ import useAuth from "@/contexts/AuthContext";
                     size={"xl"}
                     src={"https://picsum.photos/200/300"} />
 
-                    <Box>
-
-                    <Text fontSize={'x-small'} fontWeight={'500'} ml={5}>Codigo de Invite</Text>
-                    <Code sx={{
-                      ml: 5,
-                      fontSize: '0.9em',
-                      _hover: {
-                        cursor: "pointer",
-                      }
-                    }} colorScheme='yellow' children='CODIGO DE CONVITE AQUI' />
-                    </Box>
+                    <Box sx={{
+      ml: 5,
+      fontSize: '0.9em',
+      _hover: {
+        cursor: "pointer",
+      }
+    }} colorScheme='yellow' onClick={handleCopy}>
+      {isCopied ? 'Copiado!' : 'Link de afiliado'}
+    </Box>
 
                   </Box>
                   
@@ -154,10 +196,8 @@ import useAuth from "@/contexts/AuthContext";
 
                     <Box maxWidth={"600px"}>
                       <Text >E-mail atual</Text>
-                      <Text fontWeight={'400'}>Email@email.com</Text>
+                      <Text fontWeight={'400'}>{dadosCliente.email}</Text>
                     </Box>
-
-
                     <Box maxWidth={"600px"}>
                     <Text ml={1}>Novo e-mail</Text>
                     <InputGroup minWidth={"200px"}>
@@ -167,16 +207,19 @@ import useAuth from "@/contexts/AuthContext";
                       <Input fontWeight={'400'} />
                     </InputGroup>
                   </Box>
-
                   <Box maxWidth={"600px"}>
-                  <Text ml={1}>Senha</Text>
-                  <InputGroup  mb={3} minWidth={"200px"}>
-                    <InputLeftElement pointerEvents='none'>
-                      <PhoneIcon color='gray.900' />
-                    </InputLeftElement>
-                    <Input fontWeight={'400'} />
-                  </InputGroup>
-                </Box>
+                      <Text >Telefone atual</Text>
+                      <Text fontWeight={'400'}>{dadosCliente.telefone}</Text>
+                    </Box>
+                    <Box maxWidth={"600px"}>
+                    <Text ml={1}>Novo telefoen</Text>
+                    <InputGroup minWidth={"200px"}>
+                      <InputLeftElement pointerEvents='none'>
+                        <PhoneIcon color='gray.900' />
+                      </InputLeftElement>
+                      <Input fontWeight={'400'} />
+                    </InputGroup>
+                  </Box>
 
                   <Divider borderColor={"blackAlpha.200"} p={0.5}  w={"97%"} margin={'auto'} />
                   <Text fontSize={'2xl'} fontWeight={'500'}>Senha</Text>

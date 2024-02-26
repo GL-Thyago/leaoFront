@@ -24,7 +24,7 @@ import useAuth from '../../src/contexts/AuthContext';
       setInCart
     } = useAuth();
 
-    
+  
 
     const onPlaceQuantity = async () => {
       try{

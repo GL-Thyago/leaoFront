@@ -24,6 +24,8 @@ import Rating from "react-rating";
 //   import { AiOutlineHeart, AiFillCheckCircle } from "react-icons/ai";
 import { BsStarFill, BsStar } from "react-icons/bs";
 import ModalBuy from "../ModalBuy";
+import ModalCompradas from "../ModalCompradas";
+
 import api from '../../src/services/api';
 
 export default function ItemList({
@@ -33,14 +35,21 @@ export default function ItemList({
   propietes = {},
 }) {
   const [isFavorited, setIsFavorited] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpenBuyModal, onOpen: onOpenBuyModal, onClose: onCloseBuyModal } = useDisclosure();
+  const { isOpen: isOpenCompradasModal, onOpen: onOpenCompradasModal, onClose: onCloseCompradasModal } = useDisclosure();
+  
+ 
 
   return (
     <GridItem sx={{
       overflow: 'hidden'
     }}>
-     {isOpen && <ModalBuy rifa={rifa} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />}
+     {/* {isOpen && <ModalBuy rifa={rifa} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />}
+     {isOpen && <ModalCompradas rifa={rifa} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />} */}
+     {isOpenBuyModal && <ModalBuy rifa={rifa} isOpen={isOpenBuyModal} onOpen={onOpenBuyModal} onClose={onCloseBuyModal} />}
+     {isOpenCompradasModal && <ModalCompradas rifa={rifa} isOpen={isOpenCompradasModal} onOpen={onOpenCompradasModal} onClose={onCloseCompradasModal} />}
+
       <Divider
         borderColor={"blackAlpha.600"}
         mt={{ base: 4, md: 0 }}
@@ -172,7 +181,11 @@ export default function ItemList({
           alignItems={"center"}
           borderRadius={14}
         >
-          <Button backgroundColor={"#dec5ff"} color={"#8227f4"} w={"85%"}>
+          <Button backgroundColor={"#dec5ff"} color={"#8227f4"} w={"85%"}
+          onClick={onOpenCompradasModal}
+
+            >
+
             Compradas
           </Button>
           <Button
@@ -182,7 +195,8 @@ export default function ItemList({
             border={"1px solid #8227f4"}
             color={"#8227f4"}
             w={"85%"}
-            onClick={onOpen}
+            onClick={onOpenBuyModal}
+            
           >
             Comprar
           </Button>
