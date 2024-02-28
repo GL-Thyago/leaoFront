@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   function handleBoxActivation(param) {
     const body = document.getElementsByTagName("body")[0];
-    console.log(avaliation);
+    // console.log(avaliation);
     if (param) {
       body.style.overflow = "hidden";
     } else {
@@ -78,7 +78,6 @@ export const AuthProvider = ({ children }) => {
           //   const userData = jwt(token);
           setUser({ id: 1 });
           await Router.push("/");
-          console.log("Logado com sucesso");
         }
       }catch(err){
         setError(true);
@@ -104,7 +103,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const getCart = async () => {
-    console.log(cart);
+    // console.log(cart);
     onOpen();
   }
 
@@ -113,7 +112,7 @@ export const AuthProvider = ({ children }) => {
     removeCookie("token");
     setUser(null);
     Router.push("/");
-    console.log("Deslogado com sucesso");
+    // console.log("Deslogado com sucesso");
   };
 
   return (

@@ -23,8 +23,7 @@ import { useRouter } from "next/router";
 import { PhoneIcon } from "@chakra-ui/icons";
 import { FaEllipsisV } from 'react-icons/fa';
 import api from "../services/api";
-import { format } from 'date-fns';
-
+import { format, parseISO } from 'date-fns';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -36,9 +35,11 @@ export default function Dashboard() {
   } = useDisclosure();
 
   const renderItem = ({ item }) => {
+    console.log('ooi', item)
     let formattedDate = "";
     if (item.data) {
-      formattedDate = format(new Date(item.data), 'dd/MM/yyyy');
+      const date = parseISO(item.data);
+      formattedDate = format(date, 'dd/MM/yyyy HH:mm')
     }
     return (
       <div
@@ -91,7 +92,6 @@ export default function Dashboard() {
   const pulesRifa = async () => {
     try {
       const response = await api.get(`/pulesRifa`);
-      console.log('Dados da resposta:', response.data.comprovante);
       const pule = response.data.comprovante;
       setComprovante(pule);
     } catch (error) {
@@ -105,7 +105,6 @@ useEffect(() => {
 const handleReimpressao = async (transition) => {
   try {
     const response = await api.get(`/reimpressaoRifa/${transition}`);
-    console.log('Dados da resposta:', response.data);
     const comprovante = response.data.reimpressao
     setRandom(comprovante);
     navigation.navigate('FinalRifa');
@@ -117,11 +116,10 @@ const handleReimpressao = async (transition) => {
 const verificarPagamento = async (transition) => {
       try {
         const response = await api.get(`/verificarPagamentoRifa/${transition}`);
-        console.log('Dados da resposta:', response.data);
         const { status, message, stop, comprovante } = response.data;
           if (status === 'APROVADO') {
-            setRandom(comprovante); // Configura o comprovante no estado
-            navigation.navigate('FinalRifa');
+            setRandom(comprovante);
+            router.push('/dashboard')
             return; 
           } else {
             Alert.alert('Erro', message);
@@ -199,6 +197,23 @@ const verificarPagamento = async (transition) => {
             minWidth={"200px"}
             textAlign={"left"}
           >
+
+<Box minWidth={"250px"} mt={3} h={"40px"}
+              backgroundColor={'gray.100'}
+              fontSize={'2xl'}
+              fontWeight={'500'}
+              borderRadius={4}
+              mb={2}
+              p={1}
+              sx={{
+                _hover: {
+                  cursor: "pointer",
+                }
+              }}
+              onClick={() => router.push('/dashboard')}
+              >
+                Ações
+              </Box>
             <Box
               minWidth={"250px"}
               mt={3}
@@ -254,7 +269,7 @@ const verificarPagamento = async (transition) => {
                 <Text fontSize={"2xl"} fontWeight={"bold"}>
                   Suas compras
                 </Text>
-                <Badge
+                {/* <Badge
                   h={"20px"}
                   mt={2} ml={2}
                   w={50}
@@ -264,7 +279,7 @@ const verificarPagamento = async (transition) => {
                   color={"#fff"}
                 >
                   Ativo
-                </Badge>
+                </Badge> */}
               </Box>
 
               {/* DIV IMAGINARIA*/}

@@ -20,12 +20,15 @@ import { FaTrash } from 'react-icons/fa';
 import api from '../../src/services/api';
 import useAuth from '../../src/contexts/AuthContext';
 import { QRCodeCanvas } from 'qrcode.react';
+import { useRouter } from 'next/router';
 // import { useHistory } from 'react-router-dom';
 
 // Dentro do seu componente de função
 
 export default function ModalCart({ isOpen, onClose, Cart }) {
-  const history = useHistory();
+  const router = useRouter();
+
+  // const history = useHistory();
   const [value, setValue] = useState(false);
   const [verifyTransition, setVerifyTransition] = useState('');
   const [cartItems, setCartItems] = useState([]);
@@ -41,6 +44,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
     setCartItems(updatedCart);
   };
 
+
   const verificarPagamento = async (transition) => {
     let execucoes = 0;
     const MAX_EXECUCOES = 36;
@@ -48,17 +52,16 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
     while (execucoes < MAX_EXECUCOES) {
       try {
         const response = await api.get(`/verificarPagamentoRifa/${transition}`);
-        console.log('Dados da resposta:', response.data);
         const { status, message, stop, comprovante } = response.data;
 
         if (stop) {
           if (status === 'APROVADO') {
             alert('Pagamento aprovado!');
-            history.push('/dashboard');
+            router.push('/dashboard');
             return;
           } else {
             alert('Pagamento reprovado:', message);
-            history.push('/dashboard');
+            router.push('/dashboard');
             return;
           }
           break;
@@ -75,7 +78,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
 
     if (execucoes === MAX_EXECUCOES) {
       Alert.alert('Limite de tentativas atingido', 'Não foi possível confirmar o pagamento.');
-      history.push('/dashboard');
+      router.push('/dashboard');
     }
   };
 
@@ -95,9 +98,6 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
 
 
       const response = await api.post('/criarQrCodeRifa', { dados });
-      console.log({ response })
-      console.log('Resposta da API não contém os dados esperados:', dados);
-
       if (response.data) {
         const qrCode = response.data.emvqrcps;
         const transition = response.data.transactionId;
@@ -107,7 +107,6 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         verificarPagamento(transition);
       } else {
         alert('Resposta da API não contém os dados esperados:', response.data);
-        console.log('Resposta da API não contém os dados esperados:', response.data);
       }
     } catch (error) {
       alert('Erro ao enviar linhas selecionadas:', error);
@@ -131,7 +130,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
             ml={7}
             fontSize={'4xl'}
             fontWeight={'bold'}
-          >Compra</Text>
+          >Comprar</Text>
 
         </ModalHeader>
         <ModalCloseButton />

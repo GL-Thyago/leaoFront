@@ -6,7 +6,6 @@ export function middleware(request) {
   if (request.nextUrl.pathname.startsWith('/dashboard')) {
     // pegar o token da requisição verificar se é viavel
     // if (token){
-    //     console.log('Teste')
     // }
     // return NextResponse.rewrite(new URL('/about-2', request.url))
   }

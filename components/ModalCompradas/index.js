@@ -44,7 +44,7 @@ export default function ModalCompradas({ isOpen, onClose, rifa }) {
   return (
     <Modal isCentered onClose={onClose} isOpen={isOpen} motionPreset='slideInBottom'>
       <ModalOverlay />
-      <ModalContent backgroundColor={'#fff'} maxW="800px">
+      <ModalContent backgroundColor={'#fff'} maxW="1200px">
         <ModalHeader textAlign="center">
           <Text fontSize="4xl" fontWeight="bold">
             Meus Palpites
@@ -65,7 +65,7 @@ export default function ModalCompradas({ isOpen, onClose, rifa }) {
             ) : (
               <Wrap spacing={4}>
                 {palpites.map((palpite, index) => (
-                  <WrapItem key={index} width="100px">
+                  <WrapItem key={index} width="75px">
                     <Box
                       borderWidth="1px"
                       borderRadius="lg"

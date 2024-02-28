@@ -24,18 +24,50 @@ import useAuth from '../../src/contexts/AuthContext';
       setInCart
     } = useAuth();
 
+    const handleSubmit = async () => {
+      try {
+        const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.preco * cur.quantidade), 0);
+  
+        const selecoesValidas = Cart.filter((selecao) => selecao.quantidade > 0);
+        const dados = selecoesValidas.map((selecao) => ({
+          id: selecao.id,
+          nome: selecao.nome,
+          quantidade: selecao.quantidade,
+          total: selecao.preco * selecao.quantidade
+        }));
+  
+  
+        const response = await api.post('/criarQrCodeRifa', { dados });
+        if (response.data) {
+          const qrCode = response.data.emvqrcps;
+          const transition = response.data.transactionId;
+  
+          setValue(qrCode);
+          setVerifyTransition(transition);
+          verificarPagamento(transition);
+        } else {
+          alert('Resposta da API não contém os dados esperados:', response.data);
+        }
+      } catch (error) {
+        alert('Erro ao enviar linhas selecionadas:', error);
+        console.log('Erro ao enviar linhas selecionadas:', error);
+      }
+    };
   
 
     const onPlaceQuantity = async () => {
       try{
         const dados = {
           id: rifa.id,
-          quantidade: parseInt(quantity)
+          quantidade: parseInt(quantity),
+          nome:rifa.nome,
+          valor:rifa.valor
+
         }
         setInCart(dados)
         onClose();
       }catch(err){
-        console.log(err);
+        // console.log(err);
       }
     }
   
@@ -55,7 +87,7 @@ import useAuth from '../../src/contexts/AuthContext';
             ml={7}
             fontSize={'4xl'}
             fontWeight={'bold'}
-            >Compra</Text>
+            >Comprar</Text>
 
             </ModalHeader>
         <ModalCloseButton />
@@ -89,13 +121,10 @@ import useAuth from '../../src/contexts/AuthContext';
                 w={'100%'}
                 isDisabled={quantity <= 0}
                 marginY={1}
-                onClick={() => {
-                  if (quantity <= 0) {
-                    return;
-                  }
-//carrinho
-                  onPlaceQuantity();
-                }}>Finalizar compra</Button>
+        
+
+onClick={handleSubmit}
+                >Finalizar compra</Button>
               </Box>
 
             </Stack>

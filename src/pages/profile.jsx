@@ -37,7 +37,6 @@ import api from "../services/api"
   const listDadosCliente = async () => {
     try {
       const response = await api.get(`/listDadosCliente`);
-      console.log('Dados da resposta:', response.data);
       const cliente = response.data.cliente;
       setDadosCliente(cliente);
       setIsLoading(false);
@@ -117,6 +116,22 @@ import api from "../services/api"
              textAlign={'left'}
              
              >
+                   <Box minWidth={"250px"} mt={3} h={"40px"}
+              backgroundColor={'gray.100'}
+              fontSize={'2xl'}
+              fontWeight={'500'}
+              borderRadius={4}
+              mb={2}
+              p={1}
+              sx={{
+                _hover: {
+                  cursor: "pointer",
+                }
+              }}
+              onClick={() => router.push('/dashboard')}
+              >
+                Ações
+              </Box>
 
               <Box minWidth={"250px"} mt={3} h={"40px"}
               backgroundColor={'gray.100'}

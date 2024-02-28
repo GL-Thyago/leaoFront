@@ -192,12 +192,12 @@ export default function ItemList({
             Comprar
           </Button>
           <Box display={"flex"} flexDirection={"row"}>
-            <Rating
+            {/* <Rating
               emptySymbol={<BsStar size={13} color="#ECC94B" />}
               fullSymbol={<BsStarFill size={13} color="#ECC94B" />}
               initialRating={3}
               readonly
-            />
+            /> */}
 
             <Text
               ml={2}

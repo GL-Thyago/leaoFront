@@ -37,8 +37,6 @@ export default function Dashboard() {
     const fetchRifas = async () => {
       try {
         const allRifas = await api.get('/listRifas');
-        console.log(allRifas.data.rifas);
-    
         setRifas(allRifas.data.rifas);
       }catch (err){
         console.log(err);
@@ -53,10 +51,10 @@ export default function Dashboard() {
     
   return (
     <>
-      <ModalSideMenu  isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>
+      {/* <ModalSideMenu  isOpen={isOpen} onOpen={onOpen} onClose={onClose}/> */}
       <main>
         <Grid
-          margin={"auto"}
+          // margin={"auto"}
           templateAreas={{
             base: `"top top"
                   "body body"`,
@@ -65,20 +63,20 @@ export default function Dashboard() {
                 "body body"`,
           }}
           h="100%"
-          p={{base: 2, md:10}}
+          // p={{base: 2, md:10}}
           maxWidth={"1280px"}
-          gridTemplateRows={{ base: "190px", xl: "180px" }}
+          // gridTemplateRows={{ base: "190px", xl: "180px" }}
           gridTemplateColumns={"1fr 6fr"}
           gap={3}
         >
-          <GridItem area={"top"} bg="#ffff" borderTopRadius={14}>
+          {/* <GridItem area={"top"} bg="#ffff" borderTopRadius={14}>
             <Box>
-              {/* <Box display={"flex"} justifyContent={"space-between"}>
+              <Box display={"flex"} justifyContent={"space-between"}>
                 <Text mt={3} mb={3} ml={5} fontWeight={"500"} fontSize="xl">
                   Escolha a categoria
-                </Text> */}
+                </Text>
 
-                {/* <Box>
+                <Box>
                   <FormControl
                     display="flex"
                     alignItems="center"
@@ -99,12 +97,12 @@ export default function Dashboard() {
                       id="filters"
                     />
                   </FormControl>
-                </Box> */}
-              {/* </Box> */}
+                </Box>
+              </Box>
               <Divider borderColor={"blackAlpha.600"} />
             </Box>
 
-            {/* <Box
+            <Box
               display={"flex"}
               flexDirection={"row"}
               alignItems={"center"}
@@ -135,8 +133,8 @@ export default function Dashboard() {
                 activated={selectedItem === 3}
                 functionExec={() => handleItemClick(3)}
               />
-            </Box> */}
-          </GridItem>
+            </Box>
+          </GridItem> */}
 {/* 
           <GridItem
             area={"side"}
