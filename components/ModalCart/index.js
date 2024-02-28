@@ -187,6 +187,8 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
                     style={{
                       margin: 5
                     }}
+              size={256}
+
                     value={value} />
 
                   <Button

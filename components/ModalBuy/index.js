@@ -217,8 +217,9 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
             <Text>QrCode</Text>
             <QRCodeCanvas
               style={{
-                margin: 5
+                margin: 10
               }}
+              size={256}
               value={value} />
 
             <Button
