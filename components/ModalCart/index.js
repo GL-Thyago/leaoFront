@@ -13,7 +13,8 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  CloseButton
+  CloseButton,
+  Alert
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa';
@@ -32,6 +33,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
   const [value, setValue] = useState(false);
   const [verifyTransition, setVerifyTransition] = useState('');
   const [cartItems, setCartItems] = useState([]);
+  const { setCart, setInCart } = useAuth();
 
 
   useEffect(() => {
@@ -41,7 +43,8 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
   const handleDeleteProduct = (index) => {
     const updatedCart = [...cartItems];
     updatedCart.splice(index, 1);
-    setCartItems(updatedCart);
+    // setCartItems(updatedCart);
+    setCart(updatedCart);
   };
 
 
@@ -77,16 +80,14 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
     }
 
     if (execucoes === MAX_EXECUCOES) {
-      Alert.alert('Limite de tentativas atingido', 'Não foi possível confirmar o pagamento.');
+      alert('Limite de tentativas atingido', 'Não foi possível confirmar o pagamento.');
       router.push('/dashboard');
     }
   };
 
-
-
   const handleSubmit = async () => {
     try {
-      const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.valor * cur.quantidade), 0);
+      // const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.valor * cur.quantidade), 0);
 
       const selecoesValidas = Cart.filter((selecao) => selecao.quantidade > 0);
       const dados = selecoesValidas.map((selecao) => ({
@@ -105,12 +106,16 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         setValue(qrCode);
         setVerifyTransition(transition);
         verificarPagamento(transition);
-        setInCart([]);
+         setCart([]);
+         onClose();
       } else {
         alert('Resposta da API não contém os dados esperados:', response.data);
-        setInCart([]);
+         setCart([]);
+         onClose();
       }
     } catch (error) {
+      setCart([]);
+      onClose();
       alert('Erro ao enviar linhas selecionadas:', error);
       console.log('Erro ao enviar linhas selecionadas:', error);
     }
@@ -146,7 +151,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
                   {/* <Text>{}</Text> */}
                   {cartItems.map((item, index) => (
                     // <Text key={index}>
-                    //   Produto: {item.nome}, Quantidade: {item.quantidade}, Preço: {item.valor}
+                    //   Produto: {item.nome}, Quantidade: {item.quantidade}, Preço: {item.preco}
                     // </Text>
                     <Box key={index} borderWidth="3px" borderRadius="lg" p="2" mb="2" borderColor="gray.200" w="250px">
                       <Text fontSize="lg" fontWeight="bold">Ação: {item.nome}</Text>

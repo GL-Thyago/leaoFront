@@ -15,6 +15,8 @@ import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { CloseIcon } from "@chakra-ui/icons";
 import ModalCart from "../../components/ModalCart";
+import ModalBuy from "../../components/ModalBuy";
+
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -117,9 +119,10 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, login, logout, setInCart, getCart }}
+      value={{ isAuthenticated: !!user, user, login, logout, setInCart, getCart, setCart }}
     >
       {isOpen && <ModalCart isOpen={isOpen} onClose={onClose} Cart={cart} />}
+      {isOpen && <ModalBuy isOpen={isOpen} onClose={onClose} Cart={cart} />}
   
       {avaliation && user && (
         <>
