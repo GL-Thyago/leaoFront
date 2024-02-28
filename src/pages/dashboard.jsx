@@ -43,11 +43,7 @@ export default function Dashboard() {
       }
     }
     fetchRifas();
-  
     }, []);
-
-
-
     
   return (
     <>

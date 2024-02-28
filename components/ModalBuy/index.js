@@ -26,14 +26,14 @@ import useAuth from '../../src/contexts/AuthContext';
 
     const handleSubmit = async () => {
       try {
-        const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.preco * cur.quantidade), 0);
+        const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.valor * cur.quantidade), 0);
   
         const selecoesValidas = Cart.filter((selecao) => selecao.quantidade > 0);
         const dados = selecoesValidas.map((selecao) => ({
           id: selecao.id,
           nome: selecao.nome,
           quantidade: selecao.quantidade,
-          total: selecao.preco * selecao.quantidade
+          total: selecao.valor * selecao.quantidade
         }));
   
   
@@ -45,8 +45,10 @@ import useAuth from '../../src/contexts/AuthContext';
           setValue(qrCode);
           setVerifyTransition(transition);
           verificarPagamento(transition);
+          setInCart([]);
         } else {
           alert('Resposta da API não contém os dados esperados:', response.data);
+          setInCart([]);
         }
       } catch (error) {
         alert('Erro ao enviar linhas selecionadas:', error);
@@ -121,9 +123,13 @@ import useAuth from '../../src/contexts/AuthContext';
                 w={'100%'}
                 isDisabled={quantity <= 0}
                 marginY={1}
-        
-
-onClick={handleSubmit}
+                onClick={() => {
+                  if (quantity <= 0) {
+                    return;
+                  }
+                  onPlaceQuantity(); 
+                  handleSubmit();
+                }}
                 >Finalizar compra</Button>
               </Box>
 

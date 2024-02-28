@@ -86,14 +86,14 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
 
   const handleSubmit = async () => {
     try {
-      const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.preco * cur.quantidade), 0);
+      const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.valor * cur.quantidade), 0);
 
       const selecoesValidas = Cart.filter((selecao) => selecao.quantidade > 0);
       const dados = selecoesValidas.map((selecao) => ({
         id: selecao.id,
         nome: selecao.nome,
         quantidade: selecao.quantidade,
-        total: selecao.preco * selecao.quantidade
+        total: selecao.valor * selecao.quantidade
       }));
 
 
@@ -105,8 +105,10 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         setValue(qrCode);
         setVerifyTransition(transition);
         verificarPagamento(transition);
+        setInCart([]);
       } else {
         alert('Resposta da API não contém os dados esperados:', response.data);
+        setInCart([]);
       }
     } catch (error) {
       alert('Erro ao enviar linhas selecionadas:', error);
@@ -140,15 +142,15 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
             p={5}>
             <Box w={'100%'}>
               {!value ? (
-                <Center flexDirection={'column'} w={'100%'}>
+                <Center flexDirection={'column'} w={'100%'} >
                   {/* <Text>{}</Text> */}
                   {cartItems.map((item, index) => (
                     // <Text key={index}>
-                    //   Produto: {item.nome}, Quantidade: {item.quantidade}, Preço: {item.preco}
+                    //   Produto: {item.nome}, Quantidade: {item.quantidade}, Preço: {item.valor}
                     // </Text>
-                    <Box key={index} borderWidth="1px" borderRadius="lg" p="4" mb="4" borderColor="gray.200">
+                    <Box key={index} borderWidth="3px" borderRadius="lg" p="2" mb="2" borderColor="gray.200" w="250px">
                       <Text fontSize="lg" fontWeight="bold">Ação: {item.nome}</Text>
-                      <Text>Preço: {item.preco}</Text>
+                      <Text>Preço: {item.valor}</Text>
                       <Text>Quantidade: {item.quantidade}</Text>
                       <Box>
 
