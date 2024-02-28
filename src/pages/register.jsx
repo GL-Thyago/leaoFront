@@ -32,7 +32,7 @@ export default function Home() {
   // get a query parameter from the url
   const { afiliado = null } = router.query
   const codigo = afiliado !== null ? afiliado : '0';
-  
+
   const estados = [
     { value: 'AC', label: 'Acre' },
     { value: 'AL', label: 'Alagoas' },
@@ -62,7 +62,7 @@ export default function Home() {
     { value: 'SE', label: 'Sergipe' },
     { value: 'TO', label: 'Tocantins' },
   ];
-  
+
   const {
     register,
     handleSubmit,
@@ -70,11 +70,11 @@ export default function Home() {
     formState: { errors },
   } = useForm()
 
-
   const onSubmit = async (data) => {
-    try{
+   
+    try {
 
-      const post = await api.post('/cadastroClinteRifa',{
+      const post = await api.post('/cadastroClinteRifa', {
         email: data.email,
         nome: data.nome,
         cpf: data.cpf.replace(/[.-]/g, ''),
@@ -85,17 +85,28 @@ export default function Home() {
         uf: data.uf,
         codigo: codigo
       });
-      
-    if (post.status === 200) {
-      setIsAlert(true);
-      setMessageAlert(post.data.msg);
-    }
 
-    }catch(e){
+      if (post.status === 200) {
+        setIsAlert(true);
+        setMessageAlert(post.data.msg);
+      }
+
+    } catch (e) {
       setIsAlert(false);
       setMessageAlert(e.response.data.msg);
     }
   }
+
+  // const validateAge = (value) => {
+  //   const currentDate = new Date();
+  //   const birthDate = new Date(value);
+  //   const age = currentDate.getFullYear() - birthDate.getFullYear();
+  //   const monthDiff = currentDate.getMonth() - birthDate.getMonth();
+  //   if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDate.getDate())) {
+  //     age--;
+  //   }
+  //   return age >= 18 || 'Você deve ter mais de 18 anos.';
+  // };
 
   return (
     <Box
@@ -109,14 +120,14 @@ export default function Home() {
       {/* <Box width={"100%"} height={"50vh"} backgroundColor={"#c2c2c2"} /> */}
       {/* <Box width={"100%"} height={"50vh"} backgroundColor={"#ffff"} /> */}
       <main style={{ maxWidth: '1420px', margin: 'auto' }}>
-      <Box
+        <Box
           mt={10}
           mb={10}
           mx={'auto'}
           maxW={{ base: '100%', md: '1420px' }}
           px={5}
         >
-       <Box
+          <Box
             border='2px solid #c2c2c2'
             borderRadius='5px'
             p={5}
@@ -129,30 +140,30 @@ export default function Home() {
               letterSpacing='0.5px'
             >Crie sua conta</Text>
 
-            {isAlert !== null &&  (
-               <Box
-               mt={5}
-               backgroundColor={isAlert ? 'green.100' : 'pink.100'}
-               p={0.5}
-               fontWeight='600'
-               color='#545454'
-               fontSize='sm'
-               display='flex'
-               alignItems='center'
-               borderRadius='3px'
-             >
+            {isAlert !== null && (
+              <Box
+                mt={5}
+                backgroundColor={isAlert ? 'green.100' : 'pink.100'}
+                p={0.5}
+                fontWeight='600'
+                color='#545454'
+                fontSize='sm'
+                display='flex'
+                alignItems='center'
+                borderRadius='3px'
+              >
                 <WarningTwoIcon
                   w={'12px'}
-                  />
+                />
                 <Text>
                   {messageAlert}
                 </Text>
               </Box>
             )}
 
-            <form 
-            onError={errors => console.log(errors)}
-            onSubmit={handleSubmit(onSubmit)}>
+            <form
+              onError={errors => console.log(errors)}
+              onSubmit={handleSubmit(onSubmit)}>
               <Stack
                 p={5}
                 w={'100%'}
@@ -168,9 +179,9 @@ export default function Home() {
                       letterSpacing={'0.5px'}
                     >Seu e-mail</Text>
                     <Input
-                    p={2}
-                    size='sm'
-                    fontWeight='semibold'
+                      p={2}
+                      size='sm'
+                      fontWeight='semibold'
                       {...register('email', {
                         required: true,
                         pattern: {
@@ -179,7 +190,7 @@ export default function Home() {
                         }
                       })}
                       type='email' placeholder='Digite seu e-mail' />
-                      {errors.mail &&  <Text color={'red'} fontSize={'xs'}>Por favor, digite um email válido.</Text>}
+                    {errors.email && <Text color={'red'} fontSize={'xs'}>Por favor, digite um email válido.</Text>}
                   </Box>
 
                   <Box>
@@ -200,7 +211,7 @@ export default function Home() {
                         required: true,
                       })}
                       type='text' placeholder='Digite seu nome' />
-                      {errors.nome &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite um nome válido.</Text>}
+                    {errors.nome && <Text color={'red'} fontSize={'2xs'}>Por favor, digite um nome válido.</Text>}
                   </Box>
                 </Flex>
 
@@ -225,13 +236,13 @@ export default function Home() {
                       {...register('senha', {
                         required: true,
                         pattern: {
-                        //   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                        //   message: 'Digite uma senha válida.'
-                        value: 6,
+                          //   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                          //   message: 'Digite uma senha válida.'
+                          value: 6,
                         }
                       })}
                       type='password' placeholder='Senha' />
-                      {errors.senha &&  <Text color={'red'} fontSize={'2xs'}>Sua senha deve conter campos válidos.</Text>}
+                    {errors.senha && <Text color={'red'} fontSize={'2xs'}>Sua senha deve conter campos válidos.</Text>}
                   </Box>
 
                   <Box
@@ -240,19 +251,19 @@ export default function Home() {
                       letterSpacing={'0.5px'}
                     >CPF</Text>
                     <Input
-                    type='tel'
+                      type='tel'
                       p={2}
                       size='sm'
-                      as={InputMask} mask="999.999.999-99" 
+                      as={InputMask} mask="999.999.999-99"
                       maskChar={'_'}
                       fontWeight={'semibold'}
                       {...register('cpf', {
-                          required: true,
-                          pattern: {
-                            value: /^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/,
-                            message: 'Digite um CPF válido.'
-                          }
-                        })
+                        required: true,
+                        pattern: {
+                          value: /^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/,
+                          message: 'Digite um CPF válido.'
+                        }
+                      })
                       }
                       sx={{
                         _placeholder: {
@@ -261,30 +272,30 @@ export default function Home() {
                         }
                       }}
                       placeholder='Digite seu CPF' />
-                      {errors.cpf &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite um CPF válido.</Text>}
+                    {errors.cpf && <Text color={'red'} fontSize={'2xs'}>Por favor, digite um CPF válido.</Text>}
                   </Box>
                 </Flex>
                 <Flex
                   justifyContent={'space-around'}
                 >
-<Box
-                  marginX={2}
+                  <Box
+                    marginX={2}
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
                     >CEP </Text>
                     <Input
-                      as={InputMask} mask="99999-999" 
+                      as={InputMask} mask="99999-999"
                       maskChar={'_'}
                       p={2}
                       fontWeight={'semibold'}
                       {...register('cep', {
-                          required: true,
-                          pattern: {
-                            value: /^[0-9]{5}-[0-9]{3}$/,
-                            message: 'Digite um CEP válido.'
-                          }
-                        })
+                        required: true,
+                        pattern: {
+                          value: /^[0-9]{5}-[0-9]{3}$/,
+                          message: 'Digite um CEP válido.'
+                        }
+                      })
                       }
                       sx={{
                         _placeholder: {
@@ -294,10 +305,10 @@ export default function Home() {
                       }}
                       size='sm'
                       placeholder='Seu CEP aqui' />
-                      {errors.cep &&  <Text color={'red'} fontSize={'xs'}>Por favor, digite um CEP válido.</Text>}
+                    {errors.cep && <Text color={'red'} fontSize={'xs'}>Por favor, digite um CEP válido.</Text>}
                   </Box>
-                  
-      
+
+
 
                   <Box>
                     <Text fontWeight='semibold' letterSpacing='0.5px'>
@@ -327,14 +338,14 @@ export default function Home() {
                 <Flex
                   justifyContent={'space-around'}
                 >
-                  
+
                   <Box
-                  marginX={2}
+                    marginX={2}
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
                     >Data Nascimento </Text>
-                    <Input
+                    {/* <Input
                       p={2}
                       fontWeight={'semibold'}
                       sx={{
@@ -350,22 +361,47 @@ export default function Home() {
                       }
                       size='sm'
                       type='date' placeholder='Sua data de nascimento aqui' />
-                      {errors.dataNascimento &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma data válida.</Text>}
+                      {errors.dataNascimento &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma data válida.</Text>} */}
+                   
+                   
+                    <Input
+                      as={InputMask}   mask="99/99/9999"
+                      maskChar={'_'}
+                      p={2}
+                      fontWeight={'semibold'}
+                      {...register('dataNascimento', {
+                        required: true,
+                        pattern: {
+                          value: /^[0-9]{5}-[0-9]{3}$/,
+                          message: 'Data de nascimento.'
+                        }
+                      })
+                      }
+                      sx={{
+                        _placeholder: {
+                          color: '#c2c2c2',
+                          fontWeight: '500',
+                        }
+                      }}
+                      size='sm'
+                      placeholder= 'Data de nascimento' />
+                    {errors.cep && <Text color={'red'} fontSize={'xs'}>Digite um data valida.</Text>}
+
                   </Box>
                   <Box>
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
                     >Telefone</Text>
                     <Input
-                      as={InputMask} mask="(99) 99999-9999" 
+                      as={InputMask} mask="(99) 99999-9999"
                       maskChar={'_'}
                       {...register('telefone', {
-                          required: true,
-                          pattern: {
-                            value: /^\([1-9]{2}\) [0-9]{5}-[0-9]{4}$/,
-                            message: 'Digite um telefone válido.'
-                          }
-                        })
+                        required: true,
+                        pattern: {
+                          value: /^\([1-9]{2}\) [0-9]{5}-[0-9]{4}$/,
+                          message: 'Digite um telefone válido.'
+                        }
+                      })
                       }
                       p={2}
                       fontWeight={'semibold'}
@@ -378,7 +414,7 @@ export default function Home() {
                       width={'100%'}
                       size='sm'
                       placeholder='Seu telefone' />
-                      {errors.telefone &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma telefone válido.</Text>}
+                    {errors.telefone && <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma telefone válido.</Text>}
                   </Box>
                 </Flex>
                 <Button
