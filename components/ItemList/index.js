@@ -1,20 +1,13 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import {
-  Link,
-  Heading,
   Text,
-  HStack,
-  useColorMode,
-  Stack,
   Divider,
   IconButton,
   Box,
   Tag,
-  Avatar,
   TagLabel,
   Grid,
   GridItem,
-  Center,
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -38,8 +31,6 @@ export default function ItemList({
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOpenBuyModal, onOpen: onOpenBuyModal, onClose: onCloseBuyModal } = useDisclosure();
   const { isOpen: isOpenCompradasModal, onOpen: onOpenCompradasModal, onClose: onCloseCompradasModal } = useDisclosure();
-  
- 
 
   return (
     <GridItem sx={{
@@ -185,8 +176,8 @@ export default function ItemList({
           onClick={onOpenCompradasModal}
 
             >
+            Meus palpites
 
-            Compradas
           </Button>
           <Button
             mt={3}

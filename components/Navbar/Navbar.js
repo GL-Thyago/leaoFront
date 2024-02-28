@@ -82,7 +82,7 @@ export default function Navbar() {
                
                    <Text
                   cursor='pointer'
-                  onClick={() => router.push('/rifas')}
+                  onClick={() => router.push('/')}
                   size={'xs'}
                   color={'blackAlpha.900'}
                   letterSpacing='0.1px'

@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
           senha: password,
         });
 
-        console.log({response});
+        // console.log({response});
 
         const token = response.token;
 
@@ -120,9 +120,8 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{ isAuthenticated: !!user, user, login, logout, setInCart, getCart }}
     >
-
-     {isOpen && <ModalCart isOpen={isOpen} onClose={onClose} Cart={cart} />}
-
+      {isOpen && <ModalCart isOpen={isOpen} onClose={onClose} Cart={cart} />}
+  
       {avaliation && user && (
         <>
           <Box
@@ -133,13 +132,12 @@ export const AuthProvider = ({ children }) => {
             width={"100vw"}
             backgroundColor={"#5b5b5b"}
           />
-
+  
           <Box
             backgroundColor={"#fff"}
-            height={"40vh"}
-            minW={"350px"}
-            maxW={"60vw"}
-            maxH={"60vh"}
+            height={"60vh"} // Altura responsiva
+            width={"95vw"} // Largura responsiva
+            maxH={"80vh"} // Altura máxima responsiva
             position={"absolute"}
             zIndex={999}
             top={"10%"}
@@ -149,9 +147,9 @@ export const AuthProvider = ({ children }) => {
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
-            p={4}
+            p={{ base: 4, md: 8 }} // Espaçamento responsivo
           >
-            <Box w={"100%"} display={"flex"} justifyContent={"end"}>
+            <Box w={"100%"} display={"flex"} justifyContent={"flex-end"}>
               <Button
                 onClick={() => {
                   setAvaliation(false);
@@ -163,18 +161,18 @@ export const AuthProvider = ({ children }) => {
                 <CloseIcon />{" "}
               </Button>
             </Box>
-
+  
             <Box
+              flex={1}
               display={"flex"}
-              height={"100%"}
               flexDirection={"column"}
               justifyContent={"center"}
               alignItems={"center"}
             >
               <Stack spacing={4}>
                 <Box>
-                <Text
-                    fontSize="xl"
+                  <Text
+                    fontSize={{ base: "md", md: "lg" }} // Tamanho de fonte responsivo
                     textAlign={"center"}
                     fontWeight={"bold"}
                     letterSpacing={"0.5px"}
@@ -182,40 +180,73 @@ export const AuthProvider = ({ children }) => {
                     Siga nossas redes sociais e fique por dentro.
                   </Text>
                   <Text
-                    fontSize="xl"
+                    fontSize={{ base: "sm", md: "md" }} // Tamanho de fonte responsivo
                     textAlign={"center"}
                     fontWeight={"bold"}
                     letterSpacing={"0.5px"}
-                    marginBottom={'10'}
+                    marginBottom={{ base: 4, md: 8 }} // Margem inferior responsiva
                   >
-                    Diversos sorteios gratuito
+                    Diversos sorteios gratuitos
                   </Text>
+  
+                  <ButtonGroup
+  justifyContent="center" // Centraliza os botões horizontalmente
+  flexDirection={{ base: "column", md: "row" }}
+  spacing={{ base: 2, md: 4 }}
+  width="100%" // Define a largura total para o ButtonGroup
+>
+  <Link href="https://wa.me/5511965281517?text=ola%20Preciso%20de%20Suporte%20na%20Rifa" isExternal>
+    <Button
+      leftIcon={<FaWhatsapp />}
+      colorScheme='green'
+      mb={{ base: 2, md: 0 }}
+      width="100%" // Define a largura total para o botão
+    >
+      WhatsApp
+    </Button>
+  </Link>
+  <Link href="https://www.facebook.com/profile.php?id=61555804864116&mibextid=ZbWKwL" isExternal>
+    <Button
+      leftIcon={<FaFacebook />}
+      mb={{ base: 2, md: 0 }}
+      width="100%" // Define a largura total para o botão
+    >
+      Facebook
+    </Button>
+  </Link>
+  <Link href="https://www.instagram.com/rifas.leao?igsh=YmxnbWZ5ZTJpbmFx" isExternal>
+    <Button
+      leftIcon={<FaInstagram />}
+      colorScheme='pink'
+      mb={{ base: 2, md: 0 }}
+      width="100%" // Define a largura total para o botão
+    >
+      Instagram
+    </Button>
+  </Link>
+  <Link href="https://www.tiktok.com/@rifasleao" isExternal>
+    <Button
+      leftIcon={<FaTiktok />}
+      mb={{ base: 2, md: 0 }}
+      width="100%" // Define a largura total para o botão
+    >
+      TikTok
+    </Button>
+  </Link>
+</ButtonGroup>
 
-                  <ButtonGroup variant='outline' spacing='1'>
-    <Link href="https://wa.me/5511965281517?text=ola%20Preciso%20de%20Suporte%20na%20Rifa" isExternal>
-      <Button leftIcon={<FaWhatsapp />} colorScheme='green'>WhatsApp</Button>
-    </Link>
-    <Link href="https://www.facebook.com/profile.php?id=61555804864116&mibextid=ZbWKwL" isExternal>
-      <Button leftIcon={<FaFacebook />} >Facebook</Button>
-    </Link>
-    <Link href="https://www.instagram.com/rifas.leao?igsh=YmxnbWZ5ZTJpbmFx" isExternal>
-      <Button leftIcon={<FaInstagram />} colorScheme='pink'>Instagram</Button>
-    </Link>
-    <Link href="https://www.tiktok.com/@rifasleao" isExternal>
-      <Button leftIcon={<FaTiktok />} >TikTok</Button>
-    </Link>
-  </ButtonGroup>
-                
+
                 </Box>
               </Stack>
             </Box>
           </Box>
         </>
       )}
-
+  
       {children}
     </AuthContext.Provider>
   );
+  
 };
 
 export default function useAuth() {

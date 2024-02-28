@@ -83,7 +83,19 @@ import useAuth from '../../src/contexts/AuthContext';
                   }
 
                   onPlaceQuantity();
-                }}>Comprar</Button>
+                }}>Adicionar ao carrinho</Button>
+
+<Button
+                w={'100%'}
+                isDisabled={quantity <= 0}
+                marginY={1}
+                onClick={() => {
+                  if (quantity <= 0) {
+                    return;
+                  }
+//carrinho
+                  onPlaceQuantity();
+                }}>Finalizar compra</Button>
               </Box>
 
             </Stack>

@@ -27,9 +27,10 @@ export default function Home() {
   const images = [
     // 'https://cdn.autopapo.com.br/box/uploads/2023/08/18150636/honda-atualiza-xre-300-para-a-li.png',
     // 'https://static.vakinha.com.br/uploads/vakinha/image/649035/WhatsApp_Image_2019-07-18_at_10.37.00.jpeg',
-    'https://img.freepik.com/psd-gratuitas/posts-de-instagram-de-aventura-de-moto_23-2149873047.jpg',
-    'https://img.freepik.com/psd-gratuitas/posts-de-instagram-de-aventura-de-moto_23-2149873047.jpg',
-    'https://img.freepik.com/psd-gratuitas/posts-de-instagram-de-aventura-de-moto_23-2149873047.jpg',
+    'http://192.168.15.3:8000/images/10knoPix.png',
+    'http://192.168.15.3:8000/images/10knoPix.png',
+    'http://192.168.15.3:8000/images/10knoPix.png',
+
 
     // 'https://bit.ly/dan-abramov'
   ];
@@ -69,7 +70,7 @@ export default function Home() {
           </Box>
           <Stack direction="column" spacing={4} alignItems="center">
             <Button
-              onClick={() => router.push('/rifas')}
+              onClick={() => router.push('/login')}
               size="lg"
               colorScheme="black"
               backgroundColor="black"

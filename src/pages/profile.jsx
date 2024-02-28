@@ -165,9 +165,9 @@ import api from "../services/api"
                   <Box display={'flex'}
                   >
 
-                    <Avatar 
+                    {/* <Avatar 
                     size={"xl"}
-                    src={"https://picsum.photos/200/300"} />
+                    src={"https://picsum.photos/200/300"} /> */}
 
                     <Box sx={{
       ml: 5,

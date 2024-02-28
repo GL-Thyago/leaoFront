@@ -13,18 +13,37 @@ import {
   ModalOverlay,
   Stack,
   Text,
+  CloseButton
 } from '@chakra-ui/react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { FaTrash } from 'react-icons/fa';
 import api from '../../src/services/api';
 import useAuth from '../../src/contexts/AuthContext';
 import { QRCodeCanvas } from 'qrcode.react';
+// import { useHistory } from 'react-router-dom';
+
+// Dentro do seu componente de função
+
 export default function ModalCart({ isOpen, onClose, Cart }) {
+  const history = useHistory();
   const [value, setValue] = useState(false);
   const [verifyTransition, setVerifyTransition] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+
+  useEffect(() => {
+    setCartItems(Cart);
+  }, [Cart]);
+
+  const handleDeleteProduct = (index) => {
+    const updatedCart = [...cartItems];
+    updatedCart.splice(index, 1);
+    setCartItems(updatedCart);
+  };
 
   const verificarPagamento = async (transition) => {
     let execucoes = 0;
-    const MAX_EXECUCOES = 12;
+    const MAX_EXECUCOES = 36;
 
     while (execucoes < MAX_EXECUCOES) {
       try {
@@ -35,9 +54,11 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         if (stop) {
           if (status === 'APROVADO') {
             alert('Pagamento aprovado!');
+            history.push('/dashboard');
             return;
           } else {
             alert('Pagamento reprovado:', message);
+            history.push('/dashboard');
             return;
           }
           break;
@@ -49,25 +70,28 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
       }
 
       execucoes++;
-      await new Promise(resolve => setTimeout(resolve, 10000));
+      await new Promise(resolve => setTimeout(resolve, 5000));
     }
 
     if (execucoes === MAX_EXECUCOES) {
       Alert.alert('Limite de tentativas atingido', 'Não foi possível confirmar o pagamento.');
+      history.push('/dashboard');
     }
   };
 
+
+
   const handleSubmit = async () => {
     try {
+      const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.preco * cur.quantidade), 0);
+
       const selecoesValidas = Cart.filter((selecao) => selecao.quantidade > 0);
       const dados = selecoesValidas.map((selecao) => ({
         id: selecao.id,
+        nome: selecao.nome,
         quantidade: selecao.quantidade,
         total: selecao.preco * selecao.quantidade
       }));
-
-      // Calculando o total geral somando os totais de todas as seleções
-      const totalGeral = dados.reduce((acc, cur) => acc + cur.total, 0);
 
 
       const response = await api.post('/criarQrCodeRifa', { dados });
@@ -118,17 +142,36 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
             <Box w={'100%'}>
               {!value ? (
                 <Center flexDirection={'column'} w={'100%'}>
-                  <Text>Finalizar suas</Text>
-                  {Cart.map((item, index) => (
-                    <Text key={index}>
-                      Produto: {item.nome}, Quantidade: {item.quantidade}, Preço: {item.preco}
-                    </Text>
+                  {/* <Text>{}</Text> */}
+                  {cartItems.map((item, index) => (
+                    // <Text key={index}>
+                    //   Produto: {item.nome}, Quantidade: {item.quantidade}, Preço: {item.preco}
+                    // </Text>
+                    <Box key={index} borderWidth="1px" borderRadius="lg" p="4" mb="4" borderColor="gray.200">
+                      <Text fontSize="lg" fontWeight="bold">Ação: {item.nome}</Text>
+                      <Text>Preço: {item.preco}</Text>
+                      <Text>Quantidade: {item.quantidade}</Text>
+                      <Box>
+
+                        <CloseButton
+                        // position="absolute"
+                        // top="0"
+                        // right="0"
+                        onClick={() => handleDeleteProduct(index)}
+                      />
+                      </Box>
+                      
+                    </Box>
                   ))}
 
                   <Button
                     onClick={handleSubmit}
-                    w={'100%'}>
-                    Submit
+                    w={'100%'}
+                    bg="red.500" 
+                    color="white" 
+                    _hover={{ bg: 'red.600' }} 
+                  >
+                    Finalizar compras
                   </Button>
                 </Center>
               ) : (
