@@ -67,7 +67,7 @@ export default function Dashboard() {
             }}
             onPress={() => handleReimpressao(item.id)}
           >
-            <Text style={{ color: '#fff', textAlign:'center' }}>Reimpressão</Text>
+            <Text style={{ color: '#fff', textAlign:'center' }}>Efetuada</Text>
           </button>
         ) : (
           <button

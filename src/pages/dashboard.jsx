@@ -27,7 +27,7 @@ export default function Dashboard() {
   const [isFavorites, setIsFavorites] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [rifasList, setRifas] = useState([1, 2]);
+  const [rifasList, setRifas] = useState([]);
 
   const handleItemClick = (index) => {
     setSelectedItem(index);

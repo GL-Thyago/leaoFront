@@ -21,7 +21,8 @@ import api from '../../src/services/api';
 export default function ModalCompradas({ isOpen, onClose, rifa }) {
   const [quantity, setQuantity] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [palpites, setPalpites] = useState([]);
+  const [palpites, setPalpites] = useState([
+  ]);
 
   useEffect(() => {
     if (isOpen) {
@@ -33,7 +34,7 @@ export default function ModalCompradas({ isOpen, onClose, rifa }) {
     try {
       setLoading(true);
       const response = await api.get(`meusPalpitesPorRifa/${rifa.id}`);
-      setPalpites(response.data.palpites.palpites);
+      setPalpites(response.data.palpites);
       setLoading(false);
     } catch (error) {
       console.error('Erro ao consultar meus palpites:', error);
@@ -64,20 +65,39 @@ export default function ModalCompradas({ isOpen, onClose, rifa }) {
               <Text>Nenhum palpite comprado.</Text>
             ) : (
               <Wrap spacing={4}>
-                {palpites.map((palpite, index) => (
-                  <WrapItem key={index} width="75px">
-                    <Box
-                      borderWidth="1px"
-                      borderRadius="lg"
-                      overflow="hidden"
-                      p={4}
-                      boxShadow="md" // Adiciona sombreamento ao card
-                    >
-                      <Text fontSize="lg">{palpite}</Text>
-                    </Box>
-                  </WrapItem>
-                ))}
-              </Wrap>
+              {palpites.map((palpite, index) => (
+                <WrapItem key={index} width="350px"> {/* Ajuste a largura conforme necessário */}
+                  <Box
+                    borderWidth="1px"
+                    borderRadius="lg"
+                    overflow="hidden"
+                    p={4}
+                    boxShadow="md" 
+                    width="100%"
+                  >
+                    <Text fontSize="lg">Código: {palpite.codigo}</Text>
+                    <Text fontSize="lg">R$ {palpite.valor.toFixed(2)}</Text>
+                    <Text fontSize="lg">{new Date(palpite.created_at).toLocaleDateString()}</Text>
+                    <Text fontSize="lg" marginBottom={'5'}>{palpite.quantidade} Palpites </Text>
+                    <Wrap>
+                      {palpite.palpites.map((p, idx) => (
+                        <WrapItem key={idx}>
+                          <Box
+                            borderWidth="1px"
+                            borderRadius="lg"
+                            overflow="hidden"
+                            p={2}
+                            bgColor="#EDF2F7" // Cor de fundo dos palpites
+                          >
+                            <Text fontSize="md">{p}</Text>
+                          </Box>
+                        </WrapItem>
+                      ))}
+                    </Wrap>
+                  </Box>
+                </WrapItem>
+              ))}
+            </Wrap>
             )}
           </Box>
         </ModalBody>

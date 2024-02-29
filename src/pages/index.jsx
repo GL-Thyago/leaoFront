@@ -27,9 +27,9 @@ export default function Home() {
   const images = [
     // 'https://cdn.autopapo.com.br/box/uploads/2023/08/18150636/honda-atualiza-xre-300-para-a-li.png',
     // 'https://static.vakinha.com.br/uploads/vakinha/image/649035/WhatsApp_Image_2019-07-18_at_10.37.00.jpeg',
-    'http://192.168.15.3:8000/images/10knoPix.png',
-    'http://192.168.15.3:8000/images/10knoPix.png',
-    'http://192.168.15.3:8000/images/10knoPix.png',
+    'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
+    'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
+    'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
 
 
     // 'https://bit.ly/dan-abramov'

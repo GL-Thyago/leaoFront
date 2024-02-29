@@ -71,6 +71,7 @@ export default function Home() {
   } = useForm()
 
   const onSubmit = async (data) => {
+    console.log('Dados do formulário enviados:', data);
    
     try {
 
@@ -307,9 +308,6 @@ export default function Home() {
                       placeholder='Seu CEP aqui' />
                     {errors.cep && <Text color={'red'} fontSize={'xs'}>Por favor, digite um CEP válido.</Text>}
                   </Box>
-
-
-
                   <Box>
                     <Text fontWeight='semibold' letterSpacing='0.5px'>
                       UF
@@ -372,8 +370,8 @@ export default function Home() {
                       {...register('dataNascimento', {
                         required: true,
                         pattern: {
-                          value: /^[0-9]{5}-[0-9]{3}$/,
-                          message: 'Data de nascimento.'
+                          value: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
+                          message: 'Digite uma data de nascimento válida no formato dd/mm/aaaa.'
                         }
                       })
                       }
@@ -385,7 +383,7 @@ export default function Home() {
                       }}
                       size='sm'
                       placeholder= 'Data de nascimento' />
-                    {errors.cep && <Text color={'red'} fontSize={'xs'}>Digite um data valida.</Text>}
+                    {errors.dataNascimento && <Text color={'red'} fontSize={'xs'}>Digite um data valida.</Text>}
 
                   </Box>
                   <Box>
