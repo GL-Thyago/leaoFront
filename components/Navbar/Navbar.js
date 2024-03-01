@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { SunIcon, MoonIcon, HamburgerIcon, Icon } from '@chakra-ui/icons'
 import Image from 'next/image'
+import { FaShoppingCart } from 'react-icons/fa';
 
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
@@ -23,12 +24,7 @@ import { FaWhatsapp, FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
 export default function Navbar() {
 
   const { isAuthenticated, getCart } = useAuth();
-
-  // Hooks
   const router = useRouter()
-
-
-  // Drawer
   const { isOpen, onOpen, onClose } = useDisclosure()
   const drawerButtonRef = useRef()
 
@@ -207,9 +203,15 @@ export default function Navbar() {
               onClick={getCart}
               cursor='pointer'
             >
-              <Text >
+              {/* <Text >
                 Carrinho
-              </Text>
+              </Text> */}
+
+<IconButton
+              onClick={getCart}
+              aria-label='Carrinho de compras'
+              icon={<Icon as={FaShoppingCart} />}
+            />
             </Box>
           )}
           {/* <IconButton
