@@ -35,6 +35,13 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
   const [cartItems, setCartItems] = useState([]);
   const { setCart, setInCart } = useAuth();
 
+  const onCopyToClipboard = () => {
+    navigator.clipboard.writeText(value);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 5000);
+  };
 
   useEffect(() => {
     setCartItems(Cart);
@@ -72,7 +79,6 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
           // console.log('Pagamento pendente, aguardando...');
         }
       } catch (error) {
-        console.log('Erro ao verificar pagamento:', error);
       }
 
       execucoes++;
@@ -103,7 +109,10 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         const qrCode = response.data.emvqrcps;
         const transition = response.data.transactionId;
 
+        console.log('valor aqu', qrCode)
         setValue(qrCode);
+console.log('valor aqui', value)
+
         setVerifyTransition(transition);
         verificarPagamento(transition);
          setCart([]);
@@ -117,7 +126,6 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
       setCart([]);
       onClose();
       alert('Erro ao enviar linhas selecionadas:', error);
-      console.log('Erro ao enviar linhas selecionadas:', error);
     }
   };
 
@@ -146,7 +154,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
             spacing={4}
             p={5}>
             <Box w={'100%'}>
-              {!value ? (
+              {!  value ? (
                 <Center flexDirection={'column'} w={'100%'} >
                   {/* <Text>{}</Text> */}
                   {cartItems.map((item, index) => (
@@ -191,11 +199,16 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
 
                     value={value} />
 
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       navigator.clipboard.writeText(value);
                     }}
-                  >Copia e Cola</Button>
+                  >Copia e Cola</Button> */}
+
+<Button onClick={() => onCopyToClipboard(value)}>
+              {copied ? 'Copiado!' : 'Copia?'}
+            </Button>
+                  
                 </Center>
               )}
 

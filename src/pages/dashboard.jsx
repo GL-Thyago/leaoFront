@@ -39,7 +39,7 @@ export default function Dashboard() {
         const allRifas = await api.get('/listRifas');
         setRifas(allRifas.data.rifas);
       }catch (err){
-        console.log(err);
+        // console.log(err);
       }
     }
     fetchRifas();

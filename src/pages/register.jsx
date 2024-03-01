@@ -71,10 +71,7 @@ export default function Home() {
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log('Dados do formulário enviados:', data);
-   
     try {
-
       const post = await api.post('/cadastroClinteRifa', {
         email: data.email,
         nome: data.nome,

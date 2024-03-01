@@ -41,7 +41,7 @@ import api from "../services/api"
       setDadosCliente(cliente);
       setIsLoading(false);
     } catch (error) {
-      console.log('Erro ao verificar pagamento:', error);
+      // console.log('Erro ao verificar pagamento:', error);
       setError(error);
       setIsLoading(false);
     }

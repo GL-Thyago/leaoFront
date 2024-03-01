@@ -35,7 +35,6 @@ export default function Dashboard() {
   } = useDisclosure();
 
   const renderItem = ({ item }) => {
-    console.log('ooi', item)
     let formattedDate = "";
     if (item.data) {
       const date = parseISO(item.data);
@@ -79,7 +78,7 @@ export default function Dashboard() {
               width: 102,
               height: 35,
             }}
-            onPress={() => verificarPagamento(item.transition)}
+            onClick={() => verificarPagamento(item.transition)}
           >
             <Text style={{ color: '#fff', textAlign:'center' }}>Verificar</Text>
           </button>
@@ -95,7 +94,7 @@ export default function Dashboard() {
       const pule = response.data.comprovante;
       setComprovante(pule);
     } catch (error) {
-      console.log('Erro ao verificar comprovantes:', error);
+      // console.log('Erro ao verificar comprovantes:', error);
     }
 };
 useEffect(() => {
@@ -109,25 +108,48 @@ const handleReimpressao = async (transition) => {
     setRandom(comprovante);
     navigation.navigate('FinalRifa');
   } catch (error) {
-    console.log('Erro ao verificar pagamento:', error);
+    // console.log('Erro ao verificar pagamento:', error);
   }
 };
 
-const verificarPagamento = async (transition) => {
+
+  const verificarPagamento = async (transition) => {
+    let execucoes = 0;
+    const MAX_EXECUCOES = 36;
+    while (execucoes < MAX_EXECUCOES) {
       try {
         const response = await api.get(`/verificarPagamentoRifa/${transition}`);
         const { status, message, stop, comprovante } = response.data;
+
+        if (stop) {
           if (status === 'APROVADO') {
-            setRandom(comprovante);
             router.push('/dashboard')
-            return; 
+            alert('Pagamento aprovado!');
+            router.push('/dashboard');
+            return;
           } else {
-            Alert.alert('Erro', message);
+            alert('Pagamento reprovado:', message);
+            router.push('/dashboard');
+            return;
           }
+          break;
+        } else {
+          // console.log('Pagamento pendente, aguardando...');
+        }
       } catch (error) {
-        console.log('Erro ao verificar pagamento:', error);
+      onClose();
+        // console.log('Erro ao verificar pagamento:', error);
       }
-  
+
+      execucoes++;
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
+
+    if (execucoes === MAX_EXECUCOES) {
+      onClose();
+      alert('Limite de tentativas atingido', 'Não foi possível confirmar o pagamento.');
+      router.push('/dashboard');
+    }
   };
 
   return (

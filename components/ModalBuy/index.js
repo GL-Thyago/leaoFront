@@ -33,11 +33,19 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
 
   const { setInCart, setCart, Cart } = useAuth();
   const [cartItems, setCartItems] = useState([]);
+  const [copied, setCopied] = useState(false);
 
+  const onCopyToClipboard = () => {
+    navigator.clipboard.writeText(value)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 5000);
+      })
+      .catch((error) => console.error('Erro ao copiar:', error));
+  };
 
   useEffect(() => {
     setCartItems(Cart);
-    // console.log('mudou')
   }, [Cart]);
 
   const handleDeleteProduct = (index) => {
@@ -58,13 +66,13 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
 
         if (stop) {
           if (status === 'APROVADO') {
-      onClose();
+            onClose();
 
             alert('Pagamento aprovado!');
             router.push('/dashboard');
             return;
           } else {
-      onClose();
+            onClose();
 
             alert('Pagamento reprovado:', message);
             router.push('/dashboard');
@@ -75,8 +83,8 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
           // console.log('Pagamento pendente, aguardando...');
         }
       } catch (error) {
-      onClose();
-        console.log('Erro ao verificar pagamento:', error);
+        onClose();
+        // console.log('Erro ao verificar pagamento:', error);
       }
 
       execucoes++;
@@ -90,6 +98,36 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
     }
   };
 
+  const onPlaceQuantity2 = async () => {
+    try {
+      const dados = {
+        id: rifa.id,
+        quantidade: parseInt(quantity),
+        nome: rifa.nome,
+        valor: rifa.valor
+      }
+      setInCart(dados)
+      handleSubmit(dados);
+    } catch (err) {
+      // console.log(err);
+    }
+  }
+
+  const onPlaceQuantity = async () => {
+    try {
+      const dados = {
+        id: rifa.id,
+        quantidade: parseInt(quantity),
+        nome: rifa.nome,
+        valor: rifa.valor
+      }
+      setInCart(dados)
+      onClose();
+      // handleSubmit(dados);
+    } catch (err) {
+      // console.log(err);
+    }
+  }
 
   const handleSubmit = async (dados) => {
     try {
@@ -102,52 +140,29 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
       //   total: selecao.preco * selecao.quantidade
       // }));
       const arrayDeDados = [dados];
-      console.log(dados)
 
       const response = await api.post('/criarQrCodeRifa', { dados: arrayDeDados });
       if (response.data) {
         const qrCode = response.data.emvqrcps;
         const transition = response.data.transactionId;
 
-        setValue(qrCode);
+        setValue(response.data.emvqrcps);
         setVerifyTransition(transition);
         verificarPagamento(transition);
         setCart([]);
 
       } else {
         setCart([]);
-      onClose();
+        onClose();
 
         alert('Resposta da API não contém os dados esperados:', response.data);
       }
     } catch (error) {
       setCart([]);
       onClose();
-
       alert('Erro ao enviar linhas selecionadas:', error);
-      console.log('Erro ao enviar linhas selecionadas:', error);
     }
   };
-
-
-  const onPlaceQuantity = async () => {
-
-    try {
-      const dados = {
-        id: rifa.id,
-        quantidade: parseInt(quantity),
-        nome: rifa.nome,
-        valor: rifa.valor
-
-      }
-
-      setInCart(dados)
-
-      handleSubmit(dados);
-    } catch (err) {
-      // console.log(err);
-    }
-  }
 
   return (
     <Modal
@@ -175,7 +190,8 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
                 <Box>
 
                   <Input type="number"
-                    value={quantity}
+                    // value={quantity}
+                    value={quantity === 0 ? '' : quantity}
                     placeholder="Quantidade" onChange={(e) => {
                       const val = e.target.value;
                       if (val >= 0 && Number.isInteger(Number(val))) {
@@ -202,9 +218,7 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
                       if (quantity <= 0) {
                         return;
                       }
-                      onPlaceQuantity(); // Chamando a primeira função
-
-                      // handleSubmit(); // Chamando a segunda função
+                      onPlaceQuantity2();
                     }}
                   >Finalizar compra</Button>
                 </Box>
@@ -221,12 +235,9 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
               }}
               size={256}
               value={value} />
-
-            <Button
-              onClick={() => {
-                navigator.clipboard.writeText(value);
-              }}
-            >Copia e Cola</Button>
+            <Button onClick={() => onCopyToClipboard(value)}>
+              {copied ? 'Copiado!' : 'Copia?'}
+            </Button>
           </Center>
         )}
       </ModalContent>

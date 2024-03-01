@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
   const [enableRating, setEnableRating] = useState(false);
   const [cart, setCart] = useState([]);
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const { isOpen: isBuyOpen, onOpen: onBuyOpen, onClose: onBuyClose } = useDisclosure();
 
   function handleBoxActivation(param) {
     const body = document.getElementsByTagName("body")[0];
@@ -122,7 +123,7 @@ export const AuthProvider = ({ children }) => {
       value={{ isAuthenticated: !!user, user, login, logout, setInCart, getCart, setCart }}
     >
       {isOpen && <ModalCart isOpen={isOpen} onClose={onClose} Cart={cart} />}
-      {isOpen && <ModalBuy isOpen={isOpen} onClose={onClose} Cart={cart} />}
+      {isBuyOpen && <ModalBuy isOpen={isBuyOpen} onClose={onBuyClose} Cart={cart} />}
   
       {avaliation && user && (
         <>
