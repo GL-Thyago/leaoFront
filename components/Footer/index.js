@@ -57,7 +57,7 @@ export default function FooterJSX() {
     <Link href="https://www.facebook.com/profile.php?id=61555804864116&mibextid=ZbWKwL" isExternal>
       <Button leftIcon={<FaFacebook fontSize="30px"/>} colorScheme='blue'></Button>
     </Link>
-    <Link href="https://www.instagram.com/rifas.leao?igsh=YmxnbWZ5ZTJpbmFx" isExternal>
+    <Link href="https://www.instagram.com/gordaodalancha_?igsh=NDJtOTVlem4zajds" isExternal>
       <Button leftIcon={<FaInstagram fontSize="30px"/>} colorScheme='pink'></Button>
     </Link>
     <Link href="https://www.tiktok.com/@rifasleao" isExternal>

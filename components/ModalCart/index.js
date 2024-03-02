@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Center,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,7 +13,6 @@ import {
   Stack,
   Text,
   CloseButton,
-  Alert
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa';
@@ -22,9 +20,6 @@ import api from '../../src/services/api';
 import useAuth from '../../src/contexts/AuthContext';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useRouter } from 'next/router';
-// import { useHistory } from 'react-router-dom';
-
-// Dentro do seu componente de função
 
 export default function ModalCart({ isOpen, onClose, Cart }) {
   const router = useRouter();
@@ -34,13 +29,24 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
   const [verifyTransition, setVerifyTransition] = useState('');
   const [cartItems, setCartItems] = useState([]);
   const { setCart, setInCart } = useAuth();
+  const [copied, setCopied] = useState(false);
+
+
+  // const onCopyToClipboard = () => {
+  //   navigator.clipboard.writeText(value);
+  //   setCopied(true);
+  //   setTimeout(() => {
+  //     setCopied(false);
+  //   }, 5000);
+  // };
 
   const onCopyToClipboard = () => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 5000);
+    navigator.clipboard.writeText(value)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 5000);
+      })
+      .catch((error) => console.error('Erro ao copiar:', error));
   };
 
   useEffect(() => {
@@ -68,10 +74,14 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
           if (status === 'APROVADO') {
             alert('Pagamento aprovado!');
             router.push('/dashboard');
+         onClose();
+
             return;
           } else {
             alert('Pagamento reprovado:', message);
             router.push('/dashboard');
+         onClose();
+
             return;
           }
           break;
@@ -88,13 +98,13 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
     if (execucoes === MAX_EXECUCOES) {
       alert('Limite de tentativas atingido', 'Não foi possível confirmar o pagamento.');
       router.push('/dashboard');
+      onClose();
     }
   };
 
   const handleSubmit = async () => {
     try {
       // const totalGeral = cartItems.reduce((acc, cur) => acc + (cur.valor * cur.quantidade), 0);
-
       const selecoesValidas = Cart.filter((selecao) => selecao.quantidade > 0);
       const dados = selecoesValidas.map((selecao) => ({
         id: selecao.id,
@@ -103,17 +113,20 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         total: selecao.valor * selecao.quantidade
       }));
 
-
       const response = await api.post('/criarQrCodeRifa', { dados });
       if (response.data) {
         const qrCode = response.data.emvqrcps;
         const transition = response.data.transactionId;
 
-        setValue(response.data.emvqrcps);
+        console.log('valor aqu', qrCode)
+console.log('valor aqui', value)
+// if()
+
         setVerifyTransition(transition);
+        setValue(response.data.emvqrcps);
         verificarPagamento(transition);
          setCart([]);
-         onClose();
+        //  onClose();
       } else {
         alert('Resposta da API não contém os dados esperados:', response.data);
          setCart([]);
@@ -151,7 +164,7 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
             spacing={4}
             p={5}>
             <Box w={'100%'}>
-              {!  value ? (
+              {!value ? (
                 <Center flexDirection={'column'} w={'100%'} >
                   {/* <Text>{}</Text> */}
                   {cartItems.map((item, index) => (

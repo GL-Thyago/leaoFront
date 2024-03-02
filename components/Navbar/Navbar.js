@@ -118,7 +118,7 @@ export default function Navbar() {
     <Link href="https://www.facebook.com/profile.php?id=61555804864116&mibextid=ZbWKwL" isExternal>
       <Button leftIcon={<FaFacebook />} >Facebook</Button>
     </Link>
-    <Link href="https://www.instagram.com/rifas.leao?igsh=YmxnbWZ5ZTJpbmFx" isExternal>
+    <Link href="https://www.instagram.com/gordaodalancha_?igsh=NDJtOTVlem4zajds" isExternal>
       <Button leftIcon={<FaInstagram />} colorScheme='pink'>Instagram</Button>
     </Link>
     <Link href="https://www.tiktok.com/@rifasleao" isExternal>

@@ -212,17 +212,17 @@ export const AuthProvider = ({ children }) => {
     <Button
       leftIcon={<FaFacebook />}
       mb={{ base: 2, md: 0 }}
-      width="100%" // Define a largura total para o botão
+      width="100%"
     >
       Facebook
     </Button>
   </Link>
-  <Link href="https://www.instagram.com/rifas.leao?igsh=YmxnbWZ5ZTJpbmFx" isExternal>
+  <Link href="https://www.instagram.com/gordaodalancha_?igsh=NDJtOTVlem4zajds" isExternal>
     <Button
       leftIcon={<FaInstagram />}
       colorScheme='pink'
       mb={{ base: 2, md: 0 }}
-      width="100%" // Define a largura total para o botão
+      width="100%"
     >
       Instagram
     </Button>
