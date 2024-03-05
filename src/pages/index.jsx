@@ -27,9 +27,11 @@ export default function Home() {
   const images = [
     // 'https://cdn.autopapo.com.br/box/uploads/2023/08/18150636/honda-atualiza-xre-300-para-a-li.png',
     // 'https://static.vakinha.com.br/uploads/vakinha/image/649035/WhatsApp_Image_2019-07-18_at_10.37.00.jpeg',
-    'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
-    'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
-    'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
+    // 'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
+    // 'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
+    // 'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
+    '/anuncio/anuncio1.jpeg',
+    '/anuncio/anuncio2.jpeg',
 
 
     // 'https://bit.ly/dan-abramov'
@@ -58,12 +60,12 @@ export default function Home() {
         <Box>
         <Box
         // backgroundColor={'gray'}
-        // style={{ maxWidth: '1420px', margin: '10', width: '100vw',height: '65vh', justifyContent: 'center' }}
+        style={{ maxWidth: '100%', margin: '10', width: '100vw',height: '360px', justifyContent: 'center' }}
         >
           <Slider {...settings}>
             {images.map((image, index) => (
               <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src={image} alt={`Image ${index + 1}`} style={{ margin: 'auto' }} />
+                <img src={image} alt={`Image ${index + 1}`} style={{ margin: 'auto', maxWidth: '100%' }} />
               </div>
             ))}
           </Slider>

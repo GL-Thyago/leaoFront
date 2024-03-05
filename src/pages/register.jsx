@@ -142,16 +142,17 @@ export default function Home() {
               <Box
                 mt={5}
                 backgroundColor={isAlert ? 'green.100' : 'pink.100'}
-                p={0.5}
+                p={3}
                 fontWeight='600'
                 color='#545454'
                 fontSize='sm'
                 display='flex'
                 alignItems='center'
                 borderRadius='3px'
+                justifyContent='center'
               >
                 <WarningTwoIcon
-                  w={'12px'}
+                  w={'16px'}
                 />
                 <Text>
                   {messageAlert}
@@ -277,7 +278,7 @@ export default function Home() {
                   justifyContent={'space-around'}
                 >
                   <Box
-                    marginX={2}
+                    // marginX={2}
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
@@ -335,7 +336,7 @@ export default function Home() {
                 >
 
                   <Box
-                    marginX={2}
+                    // marginX={2}
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}

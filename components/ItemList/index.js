@@ -36,17 +36,56 @@ export default function ItemList({
     <GridItem sx={{
       overflow: 'hidden'
     }}>
-     {/* {isOpen && <ModalBuy rifa={rifa} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />}
+      {/* {isOpen && <ModalBuy rifa={rifa} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />}
      {isOpen && <ModalCompradas rifa={rifa} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />} */}
-     {isOpenBuyModal && <ModalBuy rifa={rifa} isOpen={isOpenBuyModal} onOpen={onOpenBuyModal} onClose={onCloseBuyModal} />}
-     {isOpenCompradasModal && <ModalCompradas rifa={rifa} isOpen={isOpenCompradasModal} onOpen={onOpenCompradasModal} onClose={onCloseCompradasModal} />}
+      {isOpenBuyModal && <ModalBuy rifa={rifa} isOpen={isOpenBuyModal} onOpen={onOpenBuyModal} onClose={onCloseBuyModal} />}
+      {isOpenCompradasModal && <ModalCompradas rifa={rifa} isOpen={isOpenCompradasModal} onOpen={onOpenCompradasModal} onClose={onCloseCompradasModal} />}
 
       <Divider
         borderColor={"blackAlpha.600"}
         mt={{ base: 4, md: 0 }}
         marginBottom={{ base: 4, md: 2 }}
       />
-      
+      <GridItem
+        area={"imageArea"}
+        display={{ base: "block", md: "none" }}
+        borderRadius={14}
+        p={1}
+        gridColumn={{ base: "1 / -1", md: "auto" }}
+      >
+        {/* <IconButton
+          backgroundColor={"transparent"}
+          sx={{
+            _hover: {
+              cursor: "pointer",
+              backgroundColor: "transparent",
+            },
+          }}
+          position={"relative"}
+          ml={100}
+          aria-label="favorite"
+          onClick={() => setIsFavorited(!isFavorited)}
+          icon={
+            isFavorited ? (
+              <AiFillHeart color="red" />
+            ) : (
+              <AiOutlineHeart color="red" />
+            )
+          }
+        /> */}
+
+        <img
+          style={{
+            // marginTop: "-40px",
+            borderRadius: 4,
+          }}
+          // width={{ base: "60%", xl: "100%" }}
+          // height={"100%"}
+          width={"100%"}
+          height={"100"}
+          src={`${api.defaults.img}${rifa.imagem}`}
+        />
+      </GridItem>
       <Grid
         mb={{ base: 5, md: 3 }}
         templateAreas={{
@@ -60,6 +99,9 @@ export default function ItemList({
         gridTemplateColumns={{ base: "1fr", md: "1.5fr 5fr 2.5fr" }}
         gap={1}
       >
+
+        {/* Esse é codigo a cima que causou a merda. */}
+        {/* se de merda descomente esse item a abaixo e comente o codigo a cima */}
         <GridItem
           area={"imageArea"}
           display={{ base: "none", md: "block" }}
@@ -98,7 +140,7 @@ export default function ItemList({
 
           />
         </GridItem>
-        <GridItem
+        {/* <GridItem
           area={"bodyArea"}
           borderRadius={14}
           display={"flex"}
@@ -127,7 +169,7 @@ export default function ItemList({
                   Preço
                 </Text>
                 <Text fontWeight={"bold"} color={"blackAlpha.800"}>
-                  {rifa.valor}
+                {rifa.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </Text>
               </Box>
 
@@ -162,10 +204,10 @@ export default function ItemList({
             orientation="vertical"
             height={"100%"}
           />
-        </GridItem>
+        </GridItem> */}
 
         <GridItem
-          area={"paymentArea"}
+          // area={"paymentArea"}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
@@ -173,10 +215,9 @@ export default function ItemList({
           borderRadius={14}
         >
           <Button backgroundColor={"#dec5ff"} color={"#8227f4"} w={"85%"}
-          onClick={onOpenCompradasModal}
-
-            >
-            Meus palpites
+            onClick={onOpenCompradasModal}
+          >
+            Meus numeros
 
           </Button>
           <Button
@@ -187,18 +228,30 @@ export default function ItemList({
             color={"#8227f4"}
             w={"85%"}
             onClick={onOpenBuyModal}
-            
+
           >
             Comprar
           </Button>
-          <Box display={"flex"} flexDirection={"row"}>
-            {/* <Rating
+          {/* <Box display={"flex"} flexDirection={"row"}> */}
+          {/* <Rating
               emptySymbol={<BsStar size={13} color="#ECC94B" />}
               fullSymbol={<BsStarFill size={13} color="#ECC94B" />}
               initialRating={3}
               readonly
             /> */}
-
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"space-around"}
+          >
+            <Box display={"flex"} flexDirection={"row"} mx={2}>
+              <Text fontWeight={"400"} color={"blackAlpha.700"} marginEnd={10}>
+                Preço
+              </Text>
+              <Text fontWeight={"bold"} color={"blackAlpha.800"}>
+                {rifa.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+              </Text>
+            </Box>
             <Text
               ml={2}
               fontSize={"small"}
