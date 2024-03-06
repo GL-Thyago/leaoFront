@@ -265,7 +265,7 @@ export default function ItemList({
 
           
         </GridItem>
-        <Box border="1px solid purple">
+        <Box border="1px solid purple" overflow="hidden">
              <Text
               ml={2}
               fontSize={"small"}
