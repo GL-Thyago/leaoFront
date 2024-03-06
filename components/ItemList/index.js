@@ -273,7 +273,9 @@ export default function ItemList({
               color={"gray.600"}
               padding={2}
               borderRadius={10}
+              maxHeight="200px" 
               overflow="auto"
+              marginBottom={'10%'}
             >
               {rifa.descricao}
                       {/* Liberamos a data do sorteio após 70% das ações vendidas
