@@ -252,16 +252,36 @@ export default function ItemList({
                 {rifa.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </Text>
             </Box>
-            <Text
+            <Box display={"flex"} flexDirection={"row"} mx={2}>
+              {/* <Text fontWeight={"400"} color={"blackAlpha.700"} marginEnd={10}>
+                Preço
+              </Text> */}
+              <Text fontWeight={"bold"} color={"blackAlpha.800"}>
+      
+              </Text>
+            </Box>
+           
+          </Box>
+
+          
+        </GridItem>
+        <Box border="1px solid purple">
+             <Text
               ml={2}
               fontSize={"small"}
               fontWeight={500}
               color={"gray.600"}
+              padding={2}
+              borderRadius={10}
+
             >
-              {/* (100.000) */}
+              {rifa.descricao}
+                      {/* Liberamos a data do sorteio após 70% das ações vendidas
+Enquanto isso todas as federais 
+De quarta e sábado vc concorre 
+300,00 por prêmio do resultado de 1 ao 5 */}
             </Text>
           </Box>
-        </GridItem>
       </Grid>
     </GridItem>
   );
