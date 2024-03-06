@@ -32,6 +32,8 @@ export default function Home() {
     // 'https://leao-leao-back.jx1fyp.easypanel.host/images/10knoPix.png',
     '/anuncio/anuncio1.jpeg',
     '/anuncio/anuncio2.jpeg',
+    '/anuncio/anuncio3.jpeg',
+
 
 
     // 'https://bit.ly/dan-abramov'
