@@ -131,7 +131,7 @@ export default function Home() {
                   textColor={'#000'}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  type='tel' placeholder='Digite seu e-mail' />
+                  type='tel' placeholder='Digite seu CPF' />
               </Box>
 
 
