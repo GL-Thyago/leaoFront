@@ -179,6 +179,12 @@ export default function Home() {
                     >Seu e-mail</Text>
                     <Input
                       p={2}
+                      sx={{
+                        _placeholder: {
+                          color: '#c2c2c2',
+                          // fontWeight: '500',
+                        }
+                      }}
                       size='sm'
                       fontWeight='semibold'
                       {...register('email', {
@@ -306,7 +312,7 @@ export default function Home() {
                       placeholder='Seu CEP aqui' />
                     {errors.cep && <Text color={'red'} fontSize={'xs'}>Por favor, digite um CEP válido.</Text>}
                   </Box>
-                  <Box>
+                  {/* <Box>
                     <Text fontWeight='semibold' letterSpacing='0.5px'>
                       UF
                     </Text>
@@ -328,19 +334,19 @@ export default function Home() {
                         Por favor, selecione uma UF.
                       </Text>
                     )}
-                  </Box>
+                  </Box> */}
 
                 </Flex>
                 <Flex
                   justifyContent={'space-around'}
                 >
 
-                  <Box
+                  {/* <Box
                     // marginX={2}
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
-                    >Data Nascimento </Text>
+                    >Data Nascimento </Text> */}
                     {/* <Input
                       p={2}
                       fontWeight={'semibold'}
@@ -360,7 +366,7 @@ export default function Home() {
                       {errors.dataNascimento &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma data válida.</Text>} */}
                    
                    
-                    <Input
+                    {/* <Input
                       as={InputMask}   mask="99/99/9999"
                       maskChar={'_'}
                       p={2}
@@ -383,8 +389,8 @@ export default function Home() {
                       placeholder= 'Data de nascimento' />
                     {errors.dataNascimento && <Text color={'red'} fontSize={'xs'}>Digite um data valida.</Text>}
 
-                  </Box>
-                  <Box>
+                  </Box> */}
+                  {/* <Box>
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
                     >Telefone</Text>
@@ -411,7 +417,7 @@ export default function Home() {
                       size='sm'
                       placeholder='Seu telefone' />
                     {errors.telefone && <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma telefone válido.</Text>}
-                  </Box>
+                  </Box> */}
                 </Flex>
                 <Button
                   backgroundColor={'#000'}
