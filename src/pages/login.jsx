@@ -81,7 +81,6 @@ export default function Home() {
               letterSpacing={'0.5px'}
             >Acesse sua conta</Text>
 
-
             {error && (
 
               <Box
@@ -116,7 +115,7 @@ export default function Home() {
 
                 <Text fontWeight={'semibold'}
                   letterSpacing={'0.5px'}
-                >Seu CPF</Text>
+                >Seu E-mail</Text>
                 <Input
                   p={2}
                   width={'100%'}
@@ -131,7 +130,7 @@ export default function Home() {
                   textColor={'#000'}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  type='tel' placeholder='Digite seu CPF' />
+                  type='text' placeholder='Digite seu E-mail' />
               </Box>
 
 

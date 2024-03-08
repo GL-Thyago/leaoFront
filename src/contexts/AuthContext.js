@@ -68,7 +68,9 @@ export const AuthProvider = ({ children }) => {
     console.log('teste', email , password)
     try{
         const { data: response } = await api.post("/loginClienteRifa", {
-          email: email.replace(/[.-]/g, ''),
+          // email: email.replace(/[.-]/g, ''),
+          email: email,
+
           senha: password,
         });
 

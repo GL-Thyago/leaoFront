@@ -75,12 +75,12 @@ export default function Home() {
       const post = await api.post('/cadastroClinteRifa', {
         email: data.email,
         nome: data.nome,
-        cpf: data.cpf.replace(/[.-]/g, ''),
-        dataNascimento: data.dataNascimento,
+        // cpf: data.cpf.replace(/[.-]/g, ''),
+        // dataNascimento: data.dataNascimento,
         cep: data.cep,
-        telefone: data.telefone,
+        // telefone: data.telefone,
         senha: data.senha,
-        uf: data.uf,
+        // uf: data.uf,
         codigo: codigo
       });
 
@@ -250,7 +250,7 @@ export default function Home() {
                     {errors.senha && <Text color={'red'} fontSize={'2xs'}>Sua senha deve conter campos válidos.</Text>}
                   </Box>
 
-                  <Box
+                  {/* <Box
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
@@ -278,11 +278,11 @@ export default function Home() {
                       }}
                       placeholder='Digite seu CPF' />
                     {errors.cpf && <Text color={'red'} fontSize={'2xs'}>Por favor, digite um CPF válido.</Text>}
-                  </Box>
-                </Flex>
+                  </Box> */}
+                {/* </Flex>
                 <Flex
                   justifyContent={'space-around'}
-                >
+                > */}
                   <Box
                     // marginX={2}
                   >
