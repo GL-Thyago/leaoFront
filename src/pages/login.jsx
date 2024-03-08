@@ -100,9 +100,9 @@ export default function Home() {
                   w={'12px'}
                   m={2}
                 />
-                {/* <Text>
-                  {r}
-                </Text> */}
+                <Text>
+                  {errorMessage}
+                </Text>
               </Box>
             )}
 
