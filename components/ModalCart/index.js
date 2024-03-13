@@ -118,10 +118,6 @@ export default function ModalCart({ isOpen, onClose, Cart }) {
         const qrCode = response.data.emvqrcps;
         const transition = response.data.transactionId;
 
-        // console.log('valor aqu', qrCode)
-// console.log('valor aqui', value)
-// if()
-
         setVerifyTransition(transition);
         setValue(response.data.emvqrcps);
         verificarPagamento(transition);

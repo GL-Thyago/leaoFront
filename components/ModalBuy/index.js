@@ -145,7 +145,6 @@ export default function ModalBuy({ isOpen, onClose, rifa }) {
       if (response.data) {
         const qrCode = response.data.emvqrcps;
         const transition = response.data.transactionId;
-
         setValue(response.data.emvqrcps);
         setVerifyTransition(transition);
         verificarPagamento(transition);

@@ -75,10 +75,10 @@ export default function Home() {
       const post = await api.post('/cadastroClinteRifa', {
         email: data.email,
         nome: data.nome,
-        // cpf: data.cpf.replace(/[.-]/g, ''),
+        cpf: data.cpf.replace(/[.-]/g, ''),
         // dataNascimento: data.dataNascimento,
         cep: data.cep,
-        // telefone: data.telefone,
+        telefone: data.telefone,
         senha: data.senha,
         // uf: data.uf,
         codigo: codigo
@@ -179,13 +179,13 @@ export default function Home() {
                     >Seu e-mail</Text>
                     <Input
                       p={2}
+                      size='sm'
                       sx={{
                         _placeholder: {
                           color: '#c2c2c2',
                           // fontWeight: '500',
                         }
                       }}
-                      size='sm'
                       fontWeight='semibold'
                       {...register('email', {
                         required: true,
@@ -250,7 +250,7 @@ export default function Home() {
                     {errors.senha && <Text color={'red'} fontSize={'2xs'}>Sua senha deve conter campos válidos.</Text>}
                   </Box>
 
-                  {/* <Box
+                  <Box
                   >
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
@@ -278,11 +278,11 @@ export default function Home() {
                       }}
                       placeholder='Digite seu CPF' />
                     {errors.cpf && <Text color={'red'} fontSize={'2xs'}>Por favor, digite um CPF válido.</Text>}
-                  </Box> */}
-                {/* </Flex>
+                  </Box>
+                </Flex>
                 <Flex
                   justifyContent={'space-around'}
-                > */}
+                >
                   <Box
                     // marginX={2}
                   >
@@ -336,10 +336,10 @@ export default function Home() {
                     )}
                   </Box> */}
 
-                </Flex>
+                {/* </Flex>
                 <Flex
                   justifyContent={'space-around'}
-                >
+                > */}
 
                   {/* <Box
                     // marginX={2}
@@ -365,8 +365,8 @@ export default function Home() {
                       type='date' placeholder='Sua data de nascimento aqui' />
                       {errors.dataNascimento &&  <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma data válida.</Text>} */}
                    
-                   
-                    {/* <Input
+{/*                    
+                    <Input
                       as={InputMask}   mask="99/99/9999"
                       maskChar={'_'}
                       p={2}
@@ -390,7 +390,7 @@ export default function Home() {
                     {errors.dataNascimento && <Text color={'red'} fontSize={'xs'}>Digite um data valida.</Text>}
 
                   </Box> */}
-                  {/* <Box>
+                  <Box>
                     <Text fontWeight={'semibold'}
                       letterSpacing={'0.5px'}
                     >Telefone</Text>
@@ -417,7 +417,7 @@ export default function Home() {
                       size='sm'
                       placeholder='Seu telefone' />
                     {errors.telefone && <Text color={'red'} fontSize={'2xs'}>Por favor, digite uma telefone válido.</Text>}
-                  </Box> */}
+                  </Box>
                 </Flex>
                 <Button
                   backgroundColor={'#000'}

@@ -8,6 +8,11 @@ import {
 } from '@chakra-ui/react'
 import Head from 'next/head'
 
+
+
+
+
+
 import Info from '../../components/InfoComponent';
 import AccordionItemProps from '../../components/AcordionItem';
 import { AddIcon, MinusIcon, PhoneIcon, WarningTwoIcon } from '@chakra-ui/icons';
