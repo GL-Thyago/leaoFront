@@ -1,8 +1,8 @@
 import Axios from "axios";
 
 const api = Axios.create({
-  baseURL: 'https://leao-leao-back.jx1fyp.easypanel.host/api',  
-  img: 'https://leao-leao-back.jx1fyp.easypanel.host',  
+  baseURL: 'https://uni-back-leao.h6bl0d.easypanel.host/api',  
+  img: 'https://uni-back-leao.h6bl0d.easypanel.host',  
 
   // baseURL: 'http://192.168.43.4:8000/api', 
   // img: 'http://192.168.43.4:8000', 
