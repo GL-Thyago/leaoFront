@@ -70,12 +70,9 @@ export const AuthProvider = ({ children }) => {
         const { data: response } = await api.post("/loginClienteRifa", {
           // email: email.replace(/[.-]/g, ''),
           email: email,
-
           senha: password,
         });
-
         const token = response.token;
-
         if (token) {
           setCookie("token", token);
           api.defaults.headers.Authorization = `Bearer ${token}`;
@@ -84,6 +81,8 @@ export const AuthProvider = ({ children }) => {
           await Router.push("/");
         }
       }catch(err){
+        console.log(err);
+
         setError(true);
         setErrorMessage(err.response.data.message);
     }
