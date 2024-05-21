@@ -1,8 +1,8 @@
 import Axios from "axios";
 
 const api = Axios.create({
-  baseURL: 'https://uni-leao-back.qyxfvu.easypanel.host/api',  
-  img: 'https://uni-leao-back.qyxfvu.easypanel.host',  
+  baseURL: 'https://uni-leao-rifa.jagkzv.easypanel.host/api',  
+  img: 'https://uni-leao-rifa.jagkzv.easypanel.host',  
 
   // baseURL: 'http://192.168.15.164:8000/api', 
   // img: 'http://192.168.15.164:8000', 
@@ -12,7 +12,7 @@ const api = Axios.create({
 
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json",
+    // "Content-Type": "application/json",
   },
 });
 
