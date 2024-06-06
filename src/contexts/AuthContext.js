@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password, setErrorMessage, setError) => {
     console.log('teste', email , password)
     try{
+      console.log('qqq', api)
         const { data: response } = await api.post("/loginClienteRifa", {
           // email: email.replace(/[.-]/g, ''),
           email: email,
